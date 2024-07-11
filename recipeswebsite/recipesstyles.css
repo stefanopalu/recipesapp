@@ -1,0 +1,144 @@
+/* Styles for all pages */
+body {
+    font-family: Quicksand, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 100%;
+    overflow: hidden;
+}
+
+header {
+    padding: 20px 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-family: Lobster, sans-serif;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    font-size: 3em;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.nav-list li {
+    margin-left: 20px;
+}
+
+.nav-list li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.nav-list li a:focus {
+    outline: 2px solid #fff; /* White outline */
+}
+
+main {
+    display: flex;
+    margin-top: 10px;
+    padding: 2vw;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    margin-top: 1vw;
+}
+
+body.background-image {
+    background: rgba(0,0,0,0.1) url("images/table-served.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Form Styles */
+.form-section {
+    width: 40%;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-section h2 {
+    text-align: center;
+}
+
+.form-section form {
+    margin-top: 20px;
+}
+
+.form-section form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-section form input[type="text"],
+.form-section form input[type="password"],
+.form-section form input[type="email"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.form-section form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.form-section form button:hover {
+    background-color: #45a049;
+}
+
+.form-section p {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.form-section p a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.form-section p a:hover {
+    text-decoration: underline;
+}
