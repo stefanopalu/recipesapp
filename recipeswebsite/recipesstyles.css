@@ -171,115 +171,111 @@ body.index-page {
 }
 
 /* Recipes Search Styles */
+.recipe-search-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    font-size: 2.5em; 
+    margin-bottom: 10px;
+    text-align: left;
+    margin-left: 20px;
+}
+
+.category-buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.category-buttons .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    flex: 1 1 20%;
+}
+
+.category-buttons button {
+    width: 100%;
+    padding-bottom: 100%;
+    border: none;
+    border-radius: 5%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.category-buttons .mainbutton-text {
+    margin-top: 10px;
+    font-size: 2em;
+    text-align: center;
+}
+
 .apptizer-btn {
     background-image: url(images/appetizer.jpg);
-    width: 300px;
-    height: 300px;
-    background-size: cover;
-    background-position: no-repeat;
-    background-position: center;
-    border: none;
-    position: relative;
-    left: 50px;
-    border-radius: 5%;
 }
 
 .main-btn {
     background-image: url(images/main.jpg);
-    width: 300px;
-    height: 300px;
-    background-size: cover;
-    background-position: no-repeat;
-    background-position: center;
-    border: none;
-    position: relative;
-    left: 100px;
-    border-radius: 5%;
 }
 
 .side-btn {
     background-image: url(images/side.jpg);
-    width: 300px;
-    height: 300px;
-    background-size: cover;
-    background-position: no-repeat;
-    background-position: center;
-    border: none;
-    position: relative;
-    left: 150px;
-    border-radius: 5%;
 }
 
 .dessert-btn {
     background-image: url(images/dessert.jpg);
-    width: 300px;
-    height: 300px;
-    background-size: cover;
-    background-position: no-repeat;
-    background-position: center;
+}
+
+.ingredient-buttons {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 10px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.ingredient-buttons .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ingredient-buttons button {
+    width: 100%;
+    padding-bottom: 100%; /* Maintains aspect ratio */
     border: none;
-    position: relative;
-    left: 200px;
-    border-radius: 5%;
+    border-radius: 50%; /* Circular button */
+    background-size: cover;
+    background-position: center;
+}
+
+.ingredient-buttons .ingredientbutton-text {
+    margin-top: 10px;
+    font-size: 1em;
+    text-align: center;
 }
 
 button:hover {
     opacity: 0.8;
 }
 
-.mainbutton-text {
-    color: black;
-    background-color: white;
-    font-size: 50px;
-    opacity: .6;
-}
-
 .meat-btn {
     background-image: url(images/meat.jpg);
-    width: 200px;
-    height: 200px;
-    background-size: cover;
-    background-position: no-repeat;
-    background-position: center;
-    border: none;
-    border-radius: 50%;
 }
 
 .carbveggie-btn {
     background-image: url(images/carbveggie.png);
-    width: 200px;
-    height: 200px;
-    background-size: cover;
-    background-position: no-repeat;
-    background-position: center;
-    border: none;
-    border-radius: 50%;
 }
 
 .sweet-btn {
     background-image: url(images/sweet.jpg);
-    width: 200px;
-    height: 200px;
-    background-size: cover;
-    background-position: no-repeat;
-    background-position: center;
-    border: none;
-    border-radius: 50%;
 }
 
 .fruit-btn {
     background-image: url(images/fruit.jpg);
-    width: 200px;
-    height: 200px;
-    background-size: cover;
-    background-position: no-repeat;
-    background-position: center;
-    border: none;
-    border-radius: 50%;
-}
-
-.ingredientbutton-text {
-    color: black;
-    background-color: white;
-    font-size: 20px;
 }
