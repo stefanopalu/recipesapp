@@ -1,3 +1,12 @@
+/* Color Palette */
+:root {
+    --primary-color: #5EBC85;
+    --secondary-color: #B27C5C;
+    --accent-color: #795942;
+    --text-color: #F4EFE5;
+    --background-color: #FCF9F0;
+}
+
 /* Styles for all pages */
 body {
     font-family: Quicksand, sans-serif;
@@ -21,7 +30,7 @@ body {
 
 header {
     padding: 20px 20px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--primary-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -31,7 +40,7 @@ header {
     font-family: Lobster, sans-serif;
     color: #fff;
     padding: 0;
-    margin: 0;
+    margin: 0 0 0 10px;
     font-size: 3em;
 }
 
@@ -65,14 +74,13 @@ main {
 }
 
 footer {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--primary-color);
     color: #fff;
     text-align: center;
     padding: 10px;
-    margin-top: 1vw;
 }
 
-body.index-page {
+.index-page-container {
     background: rgba(0, 0, 0, 0.1) url("images/table-served.jpg") no-repeat center center fixed;
     background-size: cover;
 }
@@ -108,14 +116,14 @@ body.index-page {
     width: calc(100% - 22px);
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--secondary-color);
     border-radius: 3px;
 }
 
 .form-section form button {
     width: 100%;
     padding: 10px;
-    background-color: #4CAF50;
+    background-color: var(--accent-color);
     color: white;
     border: none;
     border-radius: 3px;
@@ -123,7 +131,7 @@ body.index-page {
 }
 
 .form-section form button:hover {
-    background-color: #45a049;
+    background-color: var(--primary-color)49;
 }
 
 .form-section p {
@@ -132,7 +140,7 @@ body.index-page {
 }
 
 .form-section p a {
-    color: #4CAF50;
+    color: var(--accent-color);
     text-decoration: none;
 }
 
@@ -145,19 +153,8 @@ body.index-page {
     width: 100%;
     display: flex;
     flex-direction: column;
-}
-
-.user-info {
-    background-image: url(images/raw-ingredients.jpg);
-    background-size: cover;
-    background-position: cover;
-    margin: 0;
-}
-
-.user-info h2 {
-    font-size: 1.8em;
-    margin: 10px 0 10px 40px;
-    color: white
+    padding: 20px;
+    background-color: var(--background-color);
 }
 
 .user-info div {
@@ -166,34 +163,52 @@ body.index-page {
 
 .user-info h3 {
     font-size: 1.2em;
-    margin: 0 0 5px 20px;
-    color: white;
+    margin: 0 0 0 20px;
+    color: var(--secondary-color);
 }
 
 .user-info p {
     font-size: 1em;
-    color: white;
-    margin: 0 0 0 20px;
+    color: var(--primary-color); /* Adjusted color for better readability */
+    margin: 0 20px 10px 0px;
+    padding: 10px;
+    background-color: #fff; /* Background color for the box */
+    border: 1px solid var(--secondary-color); /* Optional: Add a border */
+    border-radius: 10px; /* Optional: Rounded corners */
 }
+
 /* Recipes Search Styles */
 .recipe-search-container {
     display: flex;
     flex-direction: column;
     padding: 20px;
+    background-color: var(--background-color);
 }
 
 .section-title {
     font-size: 2.5em; 
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-align: left;
-    margin-left: 20px;
+    color: var(--accent-color);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 100%; 
+    height: 3px; 
+    background-color: var(--accent-color);
+    position: absolute;
+    bottom: -5px; 
+    left: 0; 
 }
 
 .category-buttons {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    margin: 20px 0;
+    margin: 10px 0;
     flex-wrap: wrap;
 }
 
@@ -217,8 +232,9 @@ body.index-page {
 
 .category-buttons .mainbutton-text {
     margin-top: 10px;
-    font-size: 2em;
+    font-size: 1.5em;
     text-align: center;
+    color: var(--accent-color);
 }
 
 .apptizer-btn {
@@ -242,7 +258,7 @@ body.index-page {
     grid-template-columns: repeat(8, 1fr);
     gap: 10px;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .ingredient-buttons .button-container {
@@ -264,6 +280,7 @@ body.index-page {
     margin-top: 10px;
     font-size: 1em;
     text-align: center;
+    color: var(--accent-color);
 }
 
 button:hover {
@@ -284,4 +301,33 @@ button:hover {
 
 .fruit-btn {
     background-image: url(images/fruit.jpg);
+}
+
+.search-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.recipe-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.recipe-card h3 {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #333;
+    text-align: center;
 }
