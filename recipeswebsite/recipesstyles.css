@@ -331,3 +331,30 @@ button:hover {
     color: #333;
     text-align: center;
 }
+
+/* Recipes Page Styles */
+.recipe-page-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: var(--background-color);
+}
+
+.recipepicture img{
+    width: 100%;
+}
+
+.time-blocks {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly; 
+    border-top: 1px solid var(--accent-color);
+}
+
+.ingredients {
+    border-top: 1px solid var(--accent-color);
+}
+
+.cooking-instructions {
+    border-top: 1px solid var(--accent-color);
+}
