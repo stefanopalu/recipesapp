@@ -34,6 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('prep-time').textContent = recipe.prep_time;
             document.getElementById('cook-time').textContent = recipe.cook_time;
 
+            // Set recipe image
+            const recipeImage = document.getElementById('recipe-image');
+            recipeImage.src = recipe.image_path; // Assuming recipe-image is the ID of your <img> element
+
             // Check if cooking_steps is a JSON string within an array
             let cookingSteps = recipe.instructions_steps;
             if (Array.isArray(cookingSteps) && cookingSteps.length === 1) {
