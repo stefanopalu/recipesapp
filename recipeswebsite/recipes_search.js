@@ -2,21 +2,14 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed. Ready to add event listeners.');
 
     // Add event listeners to category buttons
-    const categoryButtons = document.querySelectorAll('.button-container button');
+    const categoryButtons = document.querySelectorAll('.category-buttons .button-container button');
     
     categoryButtons.forEach(button => {
         button.addEventListener('click', function() {
             const categoryId = button.dataset.categoryId;
             console.log(`Button clicked! Category ID: ${categoryId}`);
             
-            // Make GET request to get_recipes.php with category_id as parameter
-            fetch(`get_recipes.php?category_id=${categoryId}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Network response was not ok: ${response.status}`);
-                    }
-                    return response.json(); // Parse response as JSON
-                })
+            fetchRecipes(`category_id=${categoryId}`)
                 .then(data => {
                     console.log('Data received from get_recipes.php:', data);
                     updateRecipeCards(data);
@@ -26,6 +19,36 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         });
     });
+
+    // Add event listeners to ingredient buttons
+    const ingredientButtons = document.querySelectorAll('.ingredient-buttons .button-container button');
+
+    ingredientButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const ingredientId = button.dataset.ingredientId;
+            console.log(`Button clicked! Ingredient ID: ${ingredientId}`);
+            
+            fetchRecipes(`ingredient_id=${ingredientId}`)
+                .then(data => {
+                    console.log('Data received from get_recipes.php:', data);
+                    updateRecipeCards(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching recipes by ingredient:', error);
+                });
+        });
+    });
+
+    /// Function to fetch recipes by category or ingredient
+    function fetchRecipes(params) {
+        return fetch(`get_recipes.php?${params}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.status}`);
+                }
+                return response.json(); // Parse response as JSON
+            });
+    }
 
     // Function to update search results in the DOM with recipe cards
     function updateRecipeCards(recipes) {

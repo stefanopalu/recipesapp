@@ -255,7 +255,7 @@ footer {
 
 .ingredient-buttons {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 10px;
     width: 100%;
     margin-top: 10px;
@@ -287,20 +287,52 @@ button:hover {
     opacity: 0.8;
 }
 
-.meat-btn {
-    background-image: url(images/meat.jpg);
+.chicken-btn {
+    background-image: url(images/chicken.jpg);
 }
 
-.carbveggie-btn {
-    background-image: url(images/carbveggie.png);
+.flour-btn {
+    background-image: url(images/flour.jpg);
 }
 
-.sweet-btn {
-    background-image: url(images/sweet.jpg);
+.yogurt-btn {
+    background-image: url(images/yogurt.jpg);
 }
 
-.fruit-btn {
-    background-image: url(images/fruit.jpg);
+.courgette-btn {
+    background-image: url(images/courgette.jpeg);
+}
+
+.eggs-btn {
+    background-image: url(images/eggs.jpg);
+}
+
+.rice-btn {
+    background-image: url(images/rice.jpeg);
+}
+
+.potatoes-btn {
+    background-image: url(images/potatoes.webp);
+}
+
+.pear-btn {
+    background-image: url(images/pear.webp);
+}
+
+.carrot-btn {
+    background-image: url(images/carrot.webp);
+}
+
+.banana-btn {
+    background-image: url(images/banana.jpeg);
+}
+
+.spinach-btn {
+    background-image: url(images/spinach.jpg);
+}
+
+.peas-btn {
+    background-image: url(images/peas.jpg);
 }
 
 .search-results {
