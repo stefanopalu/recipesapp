@@ -69,6 +69,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = `recipepage.html?recipe_id=${recipe.recipe_id}`;
             });
 
+            // Create image element
+            const recipeImage = document.createElement('img');
+            recipeImage.classList.add('recipe-image');
+            recipeImage.src = recipe.image_path;
+            recipeImage.alt = recipe.recipe_name;
+            recipeButton.appendChild(recipeImage);
+
             const recipeTitle = document.createElement('h3');
             recipeTitle.textContent = recipe.recipe_name; // Replace with actual property from your JSON data
             recipeCard.appendChild(recipeTitle);

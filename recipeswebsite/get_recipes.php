@@ -7,7 +7,7 @@ function fetchRecipesByCategory($category_id) {
     global $conn;
 
     // Define SQL query and prepare SQL statement using the db connection
-    $sql = "SELECT recipe_id, recipe_name, category_id FROM recipes WHERE category_id = ?";
+    $sql = "SELECT recipe_id, recipe_name, category_id, image_path FROM recipes WHERE category_id = ?";
     $stmt = $conn->prepare($sql);
 
     // Check if preparing SQL statement fails
@@ -40,7 +40,7 @@ function fetchRecipesByIngredient($ingredient_id) {
     global $conn;
 
     // Define SQL query and prepare SQL statement using the db connection
-    $sql = "SELECT r.recipe_id, r.recipe_name, r.category_id
+    $sql = "SELECT r.recipe_id, r.recipe_name, r.category_id, r.image_path
             FROM recipes r
             INNER JOIN recipe_ingredients ri ON r.recipe_id = ri.recipe_id
             WHERE ri.ingredient_id = ?";
