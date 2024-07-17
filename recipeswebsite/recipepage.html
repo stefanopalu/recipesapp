@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RecipesApp</title>
     <link rel="stylesheet" href="recipesstyles.css">
+    <script src="recipepage.js" defer></script>
 </head>
 
 <body>
@@ -24,43 +25,29 @@
         <main role="main" class="recipe-page-container">
             <article>
                 <div>
-                    <h2 class="section-title">Spaghetti Bolognese</h2>
+                    <h2 class="section-title" id="recipe-title">Recipe Title</h2>
                     <div class="recipepicture">
                         <img src="images/spaghetti-bolognese-recipe.jpg" alt="Spaghetti Bolognese">
                     </div>
-                    <p>Once you’ve got this grown-up spag bol going the hob will do the rest. Any leftovers will taste even better the next day.</p>
+                    <p id="recipe-description">Descriptio here </p>
                 </div>
                 <div class="time-blocks">
                     <div>
                         <h3>Preparation Time</h3>
-                        <p>30 minutes</p>
+                        <p id="prep-time">Prep time here</p>
                     </div>
                     <div>
                         <h3>Cooking Time</h3>
-                        <p>1 hour</p>
+                        <p id="cook-time">Cook time here</p>
                     </div>
                 </div>
                 <div class="ingredients">
                     <h3>Ingredients</h3>
-                    <ul>
-                        <li>2 tbsp olive oil or sun-dried tomato oil from the jar</li>
-                        <li>6 rashers of smoked streaky bacon, chopped</li>
-                        <li>2 large onions, chopped</li>
-                        <li>3 garlic cloves, crushed</li>
-                        <li>1kg/2¼lb lean minced beef</li>
-                        <li>2 large glasses of red wine</li>
-                        <li>2x400g cans chopped tomatoes</li>
-                        <li>1x290g jar antipasti marinated mushrooms, drained</li>
-                        <li>2 fresh or dried bay leaves</li>
-                    </ul>
+                    <ul id="ingredients-list"></ul>
                 </div>
                 <div class="cooking-instructions">
                     <h3>Cooking Steps</h3>
-                    <ol>
-                        <li>Heat the oil in a large, heavy-based saucepan and fry the bacon until golden over a medium heat. Add the onions and garlic, frying until softened. Increase the heat and add the minced beef. Fry it until it has browned, breaking down any chunks of meat with a wooden spoon. Pour in the wine and boil until it has reduced in volume by about a third. Reduce the temperature and stir in the tomatoes, drained mushrooms, bay leaves, oregano, thyme and balsamic vinegar.</li>
-                        <li>Either blitz the sun-dried tomatoes in a small blender with a little of the oil to loosen, or just finely chop before adding to the pan. Season well with salt and pepper. Cover with a lid and simmer the Bolognese sauce over a gentle heat for 1-1½ hours until it's rich and thickened, stirring occasionally. At the end of the cooking time, stir in the basil and add any extra seasoning if necessary.</li>
-                        <li>Remove from the heat to 'settle' while you cook the spaghetti in plenty of boiling salted water (for the time stated on the packet). Drain and divide between warmed plates. Scatter a little parmesan over the spaghetti before adding a good ladleful of the Bolognese sauce, finishing with a scattering of more cheese and a twist of black pepper.</li>
-                    </ol>
+                    <ol id="cooking-steps-list"></ol>
                 </div>
             </article>
         </main>

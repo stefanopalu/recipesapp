@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RecipesApp</title>
     <link rel="stylesheet" href="recipesstyles.css">
+    <script src="recipes_search.js" defer></script>
 </head>
 
 <body>
@@ -25,19 +26,19 @@
             <h2 class="section-title">Categories</h2>
             <div class="category-buttons">
                 <div class="button-container">
-                    <button class="apptizer-btn"></button>
+                    <button class="apptizer-btn" data-category-id="2"></button>
                     <span class="mainbutton-text">Appetizer</span>
                 </div>
                 <div class="button-container">
-                    <button class="main-btn"></button>
+                    <button class="main-btn" data-category-id="1"></button>
                     <span class="mainbutton-text">Main</span>
                 </div>
                 <div class="button-container">
-                    <button class="side-btn"></button>
+                    <button class="side-btn" data-category-id="3"></button>
                     <span class="mainbutton-text">Side Dish</span>
                 </div>
                 <div class="button-container">
-                    <button class="dessert-btn"></button>
+                    <button class="dessert-btn" data-category-id="4"></button>
                     <span class="mainbutton-text">Dessert</span>
                 </div>
             </div>
@@ -113,8 +114,10 @@
             <div class="search-results">
                 <!-- Placeholder for search results -->
                 <div class="recipe-card">
-                    <img src="placeholder.jpg" alt="Recipe Image">
-                    <h3>Recipe Title</h3>
+                    <button class="recipe-button">
+                        <img src="placeholder.jpg" alt="Recipe Image">
+                        <h3>Recipe Title</h3>
+                    </button>
                 </div>
             </div>
         </main>
