@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const recipeButton = document.createElement('button');
             recipeButton.classList.add('recipe-button');
-            recipeButton.dataset.recipeId = recipe.recipe_id; // Store the recipe ID
+            recipeButton.dataset.recipeId = recipe.recipe_id;
             recipeButton.addEventListener('click', function() {
                 window.location.href = `recipepage.html?recipe_id=${recipe.recipe_id}`;
             });

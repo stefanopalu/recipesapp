@@ -1,9 +1,12 @@
 <?php
 session_start();
 
+$response = array();
 if (isset($_SESSION['username'])) {
-    echo json_encode(['status' => 'success', 'username' => $_SESSION['username']]);
+    $response['status'] = 'success'; // User is logged in
 } else {
-    echo json_encode(['status' => 'error']);
+    $response['status'] = 'failure'; // User is not logged in
 }
+
+echo json_encode($response);
 ?>

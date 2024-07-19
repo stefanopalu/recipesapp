@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="recipesstyles.css">
     <script src="recipepage.js" defer></script>
     <script src="session.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
@@ -23,13 +24,18 @@
                     <!-- Login/Logout buttons -->
                     <li id="loginButton" role="menuitem"><a href="index.html" title="Login">Login</a></li>
                     <li id="logoutButton" role="menuitem" style="display:none;"><a href="#" title="Logout">Logout</a></li>
+                    <!-- Profile link -->
+                    <li id="profileLink" role="menuitem" style="display:none;"><a href="userprofile.html" title="View Profile">Profile</a></li>
                 </ul>
             </nav>
         </header>
         <main role="main" class="recipe-page-container">
             <article>
                 <div>
-                    <h2 class="section-title" id="recipe-title">Recipe Title</h2>
+                    <div class="title-favorite-container">
+                        <h2 class="recipe-title" id="recipe-title">Recipe Title</h2>
+                        <i id="favorite-icon" class="far fa-heart" title="Save to Favorites"></i>
+                    </div>
                     <div class="recipepicture">
                         <img id="recipe-image" src="" alt="Recipe Image">
                     </div>
