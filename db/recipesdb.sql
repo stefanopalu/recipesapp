@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 17, 2024 at 08:37 AM
+-- Generation Time: Jul 19, 2024 at 09:15 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -53,6 +53,18 @@ CREATE TABLE `favorites` (
   `recipe_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `favorites`
+--
+
+INSERT INTO `favorites` (`favorite_id`, `recipe_id`, `user_id`) VALUES
+(2, 8, 11),
+(3, 9, 11),
+(6, 2, 11),
+(10, 33, 11),
+(11, 4, 11),
+(12, 10, 11);
 
 -- --------------------------------------------------------
 
@@ -299,7 +311,7 @@ INSERT INTO `recipes` (`recipe_id`, `recipe_name`, `description`, `preparation_t
 (29, 'Treacle pudding', 'A simple steamed syrup sponge, treacle pudding is guaranteed to please. Steam traditionally or microwave in 5 minutes.', 'less than 30 mins', 'over 2 hours', '[\"Grease a 1litre/1Â¾ pints pudding basin with butter. Put the golden syrup in to the bottom of the basin.\", \"In a separate bowl, using an electric hand whisk, mix the flour, baking powder, butter, eggs, sugar and treacle until well combined.\", \"Pour the mixture into the basin and cover with a piece of greaseproof paper.\", \"Take a piece of tin foil and make a pleat down the middle, then place this over the top of pudding basin and tie it in place like a lid. The pleat allows the foil to expand during cooking.\", \"Place an upturned saucer or a ramekin in a deep saucepan and sit the pudding on top. Add boiling water until it comes half-way up the basin. Place a lid on the pan and simmer gently to stream the pudding for about 2Â¼ hours, topping up the water as necessary.\", \"To check if the pudding is cooked, insert a metal skewer into the pudding. If it comes out clean it is ready.\", \"Carefully remove the pudding from the pan. Loosen the edges by running a table knife around the pudding and turn out onto a plate.\"]', 4, NULL, 'images/recipes_images/treacle_pudding.jpg'),
 (30, 'Banana ice cream cheesecake', 'Nadiya\'s brilliant no-bake cheesecake is actually vegan. It uses frozen banana ice cream instead of cream cheese for the filling, with an oaty hazelnut base and tart blueberry topping.', 'less than 30 mins', 'less than 10 mins', '[\"Grease and line the base and sides of a 20cm/8in round loose-bottom tin, 7.5cm/3in deep.\", \"To make the base, toast the oats and hazelnuts in a large frying pan on a medium heat for about 5 minutes until they just start to turn golden-brown, stirring all the time. Pop them straight into a food processor and blend to a fine crumb. Add the coconut oil, golden syrup and salt and blend again until it all clumps together.\", \"Pour the mixture into the prepared tin and, using the back of a spoon, press into the base and 2.5cm/1in up the side. Put the base in the fridge while you make the filling.\", \"To make the filling, put the frozen bananas into a food processor with the golden syrup, cinnamon and cocoa. Leave for 5 minutes to allow the bananas to defrost just very slightly so that they process more easily, then blend until you have what looks like a soft-scoop ice cream. Quickly spoon the mixture on top of the prepared base and pop into the freezer until you are ready to eat.\", \"When you are ready to eat, make the compote by adding the blueberries, lemon zest and juice and sugar to a pan and stirring over a medium heat until the blueberries have just softened. This should only take a few minutes. You can make the compote well in advance and, if you do, keep it chilled in the fridge until serving.\", \"Take the cheesecake out of the freezer, slide it out of the cake tin and place on a serving dish. Add the warm compote on top and leave for just a few minutes before slicing and enjoying.\"]', 4, NULL, 'images/recipes_images/banana_ice_cream.jpg'),
 (31, 'Roast pork', 'Roast pork shoulder with the perfect crackling gets a Hairy Bikers\' Med makeover with smoky Spanish spices. Serve with simple potatoes and the tasty pan juices.', 'less than 30 mins', 'over 2 hours', '[\"Preheat the oven to 230C/210C Fan/Gas 8. For the rub, mix all the rub ingredients together with a pinch of salt.\", \"Push the rub into the score lines of the pork skin and deep into the flesh â you should be able to do this without cutting through the meat as the joint is rolled. Wipe off any excess from the skin, then rub with the olive oil and pour over the lemon juice. Sprinkle the skin with salt.\", \"Spread the onion over the base of a roasting tin and place the pork on top. Add 250ml/9fl oz water. Roast on the high heat for half an hour â after this point the skin should be starting to crisp up and brown. Reduce the heat to 180C/160C Fan/Gas 4, then continue to roast for 25 minutes per half kilo of meat.\", \"Remove the pork from the oven and leave to rest, lightly covered with foil, for at least 15 minutes. Strain off the contents of the roasting tin, arranging the onions around the pork if you like, then wait for the liquid to settle. Skim off the fat (there will be quite a lot).\", \"If making gravy, sprinkle a tablespoon of flour over the roasting tin and stir over a medium heat until you have scraped up anything stuck to the base of the tin. Add the wine or sherry and mix until you have a roux-like paste. Add the skimmed pan juices and thin with a little more water if necessary to make a gravy.\", \"Alternatively, simply serve the pork with the skimmed pan juices â they will have plenty of flavour from the rub.\"]', 1, NULL, 'images/recipes_images/roast_pork.jpg'),
-(32, 'Spaghetti with garlic and chilli', 'This is the easiest pasta to make and one of the best: simply a clove of garlic, a pinch of chilli flakes, a little parsley and a generous blessing of olive oil.', 'less than 30 mins', '10 to 30 mins', '[\"Add 2 tablespoons salt to 2 litres water and bring to the boil in a large saucepan. Add the spaghetti and return to the boil quickly, then cook until al dente.\", \"Finely chop the garlic and parsley together.\", \"Heat the oil in a frying pan over a low heat. Add the garlic and parsley and fry for 1 minute, or until the garlic is softened but not coloured. Add the chilli flakes and cook for 1 more minute.\", \"Drain the spaghetti lightly, then add to the frying pan with the water still clinging to it. Mix to coat with the oil. Add a little extra cooking water if needed. Sprinkle the spaghetti with the parsley, toss, season with salt and serve.\"]', 1, NULL, NULL),
+(32, 'Spaghetti with garlic and chilli', 'This is the easiest pasta to make and one of the best: simply a clove of garlic, a pinch of chilli flakes, a little parsley and a generous blessing of olive oil.', 'less than 30 mins', '10 to 30 mins', '[\"Add 2 tablespoons salt to 2 litres water and bring to the boil in a large saucepan. Add the spaghetti and return to the boil quickly, then cook until al dente.\", \"Finely chop the garlic and parsley together.\", \"Heat the oil in a frying pan over a low heat. Add the garlic and parsley and fry for 1 minute, or until the garlic is softened but not coloured. Add the chilli flakes and cook for 1 more minute.\", \"Drain the spaghetti lightly, then add to the frying pan with the water still clinging to it. Mix to coat with the oil. Add a little extra cooking water if needed. Sprinkle the spaghetti with the parsley, toss, season with salt and serve.\"]', 1, NULL, 'images/recipes_images/spaghetti_with_garlic.jpg'),
 (33, 'Butternut squash curry with chickpeas', 'An easy vegan butternut squash and chickpea curry that freezes well.', 'less than 30 mins', '30 mins to 1 hour', '[\"Heat the oil in a large saucepan over a high heat, then add the mustard and cumin seeds, cardamom and curry leaves. Cook, stirring, for 30 seconds, or until the mustard seeds begin to pop.\", \"Add the onions to the pan, reduce the heat to medium and cook, stirring often, for 8 minutes, or until softened and starting to brown. Toss the garlic and ginger into the pan and cook for 2 minutes. Lower the heat a little, stir in the ground spices and cook, stirring, for 1 minute.\", \"Pour in the vegetable stock and bring to the boil. Add the butternut squash, bring back to the boil, then lower the heat and simmer for 15 minutes. Stir in the coconut cream, chickpeas and beans and cook for 10â15 minutes, or until the sauce is reduced and thickened slightly.\", \"Meanwhile heat up the pouches of rice (if using), following the packet instructions. Serve the curry in warmed bowls, with the rice and salad on the side if you like.\"]', 3, NULL, 'images/recipes_images/butternut_squash.jpg');
 
 -- --------------------------------------------------------
@@ -742,7 +754,7 @@ CREATE TABLE `users` (
   `firstname` varchar(45) NOT NULL,
   `lastname` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -750,16 +762,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `firstname`, `lastname`, `email`, `password`) VALUES
-(1, 'rhall', 'Robert', 'Hall', 'r.hall@randatmail.com', '8zehb7c3'),
-(2, 'jthompson', 'Justin', 'Thompson', 'j.thompson@randatmail.com', '633lp01p'),
-(3, 'vwright', 'Vanessa', 'Wright', 'v.wright@randatmail.com', 'yzg7p9ip'),
-(4, 'pwatson', 'Paul', 'Watson', 'p.watson@randatmail.com', 'wdl1pib5'),
-(5, 'mross', 'Martin', 'Ross', 'm.ross@randatmail.com', 'pw8afqfc'),
-(6, 'cevans', 'Carina', 'Evans', 'c.evans@randatmail.com', '25tkosfr'),
-(7, 'pcampbell', 'Patrick', 'Campbell', 'p.campbell@randatmail.com', 'cm0ys7ec'),
-(8, 'gthomas', 'Gianna', 'Thomas', 'g.thomas@randatmail.com', 'hn0ecltc'),
-(9, 'nholmes', 'Natalie', 'Holmes', 'n.holmes@randatmail.com', 'qxfnovld'),
-(10, 'jelliott', 'Julian', 'Elliott', 'j.elliott@randatmail.com', '56zna5qi');
+(11, 'spalu', 'stefano', 'palumbo', 'spalumbo@fakemail.com', '$2y$10$qS70rFXpaDhuMR6yjjZkxe92FueDyaL3xgufuk9qC4Cp8P1HaD0IW');
 
 --
 -- Indexes for dumped tables
@@ -828,7 +831,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `favorite_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `favorite_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
@@ -858,7 +861,7 @@ ALTER TABLE `recipe_ingredients`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
