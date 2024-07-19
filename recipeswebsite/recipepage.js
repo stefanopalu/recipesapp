@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const recipeId = getQueryParameter('recipe_id');
+    const favoriteIcon = document.getElementById('favorite-icon');
 
     if (recipeId) {
         fetch(`get_recipe_details.php?recipe_id=${recipeId}`)
@@ -22,6 +23,31 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => {
                 console.error('Error fetching recipe details:', error);
             });
+
+        // Check if the recipe is already in favorites
+        fetch(`check_favorite.php?recipe_id=${recipeId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.status}`);
+            }
+            return response.json(); // Parse response as JSON
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                if (data.favorited) {
+                    favoriteIcon.classList.remove('far', 'fa-heart');
+                    favoriteIcon.classList.add('fas', 'fa-heart', 'favorited');
+                } else {
+                    favoriteIcon.classList.remove('fas', 'fa-heart', 'favorited');
+                    favoriteIcon.classList.add('far', 'fa-heart');
+                }
+            } else {
+                console.error('Error checking favorite status:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error checking favorite status:', error);
+        });
     } else {
         console.error('No recipe_id found in the URL');
     }
@@ -68,6 +94,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('No cooking steps found in the recipe data');
             }
 
+            if (favoriteIcon) {
+                favoriteIcon.addEventListener('click', () => {
+                    const isFavorited = favoriteIcon.classList.contains('favorited');
+        
+                    fetch('save_favorite.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `recipeId=${recipeId}&favorited=${!isFavorited}`
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        if (data === 'success') {
+                            if (isFavorited) {
+                                favoriteIcon.classList.remove('fas', 'fa-heart', 'favorited');
+                                favoriteIcon.classList.add('far', 'fa-heart');
+                            } else {
+                                favoriteIcon.classList.remove('far', 'fa-heart');
+                                favoriteIcon.classList.add('fas', 'fa-heart', 'favorited');
+                            }
+                        } else {
+                            alert('Failed to update favorite status: ' + data);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error updating favorite status:', error);
+                        alert('An error occurred. Please try again.');
+                    });
+                });
+            }
         } else {
             console.error('No recipe data received');
         }

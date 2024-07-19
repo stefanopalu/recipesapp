@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RecipesApp</title>
+    <title>UserProfile</title>
     <link rel="stylesheet" href="recipesstyles.css">
+    <script src="login.js" defer></script>
+    <script src="session.js" defer></script>
+    <script src="userprofile.js" defer></script>
 </head>
+
 <body>
     <div class="container">
         <!-- Header section with navigation menu -->
@@ -16,6 +21,9 @@
                     <!-- Styled HTML list for navigation -->
                     <li role="menuitem"><a href="recipessearch.html" title="Search Recipes">Search Recipes</a></li>
                     <li role="menuitem"><a href="index.html" title="Go to HomePage">Home</a></li>
+                    <!-- Login/Logout buttons -->
+                    <li id="loginButton" role="menuitem"><a href="index.html" title="Login">Login</a></li>
+                    <li id="logoutButton" role="menuitem" style="display:none;"><a href="#" title="Logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
@@ -25,24 +33,24 @@
                     <h2 class="section-title">User Information</h2>
                     <div>
                         <h3>Username</h3>
-                        <p>YourUsername</p>
+                        <p id="username">YourUsername</p>
                     </div>
                     <div>
                         <h3>Name</h3>
-                        <p>YourName</p>
+                        <p id="firstname">YourName</p>
                     </div>
                     <div>
                         <h3>Surname</h3>
-                        <p>YourSurname</p>
+                        <p id="lastname">YourSurname</p>
                     </div>
                     <div>
                         <h3>Email</h3>
-                        <p>email@email.com</p>
+                        <p id="email">email@email.com</p>
                     </div>
                 </div>
-                <div class="favorite-recipes">
-                    <h2 class="section-title">Favorite Recipes</h2>
-                    <!-- List of favorite recipes here -->
+                <h2 class="section-title">Favorite Recipes</h2>
+                <div class="search-results" id="favorite-recipes-container">
+                    <div class="recipe-card"></div>
                 </div>
             </div>
         </main>

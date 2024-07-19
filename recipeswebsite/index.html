@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RecipesApp</title>
     <link rel="stylesheet" href="recipesstyles.css">
+    <script src="login.js" defer></script>
+    <script src="signup.js" defer></script>
+    <script src="session.js" defer></script>
 </head>
+
 <body>
     <div class="container">
         <!-- Header section with navigation menu -->
@@ -15,37 +20,45 @@
                 <ul class="nav-list">
                     <!-- Styled HTML list for navigation -->
                     <li role="menuitem"><a href="recipessearch.html" title="Search Recipes">Search Recipes</a></li>
-                    <li role="menuitem" aria-current="page"><a href="index.html" title="Go to HomePage">Home</a></li>
+                    <!-- Login/Logout buttons -->
+                    <li id="loginButton" role="menuitem"><a href="index.html" title="Login">Login</a></li>
+                    <li id="logoutButton" role="menuitem" style="display:none;"><a href="#" title="Logout">Logout</a></li>
+                    <!-- Profile link -->
+                    <li id="profileLink" role="menuitem" style="display:none;"><a href="userprofile.html" title="View Profile">Profile</a></li>
                 </ul>
             </nav>
         </header>
         <main role="main" class="index-page-container">
             <!-- Login form (initially visible) -->
-            <div id="loginForm" class="form-section">
+            <div id="loginFormSection" class="form-section">
                 <h2>Login</h2>
-                <form>
-                    <label for="loginUsername">Username:</label>
-                    <input type="text" id="loginUsername" name="username" required>
-                    <label for="loginPassword">Password:</label>
-                    <input type="password" id="loginPassword" name="password" required>
+                <form id="loginForm" action="login.php" method="POST">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
                     <button type="submit">Login</button>
                 </form>
-                <p>Don't have an account? <a href="#signupForm">Sign Up</a></p>
+                <p>Don't have an account? <a href="#" id="showSignup">Sign Up</a></p>
             </div>
-        
+
             <!-- Sign-Up form (initially hidden) -->
-            <div id="signupForm" class="form-section" style="display:none;">
+            <div id="signupFormSection" class="form-section" style="display:none;">
                 <h2>Sign Up</h2>
-                <form>
+                <form id="signupForm" action="signup.php" method="POST">
                     <label for="signupUsername">Username:</label>
                     <input type="text" id="signupUsername" name="username" required>
+                    <label for="signupFirstname">First Name:</label>
+                    <input type="text" id="signupFirstname" name="firstname" required>
+                    <label for="signupLastname">Last Name:</label>
+                    <input type="text" id="signupLastname" name="lastname" required>
                     <label for="signupPassword">Password:</label>
                     <input type="password" id="signupPassword" name="password" required>
                     <label for="signupEmail">Email:</label>
                     <input type="email" id="signupEmail" name="email" required>
                     <button type="submit">Sign Up</button>
                 </form>
-                <p>Already have an account? <a href="#loginForm">Login</a></p>
+                <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
             </div>
         </main>
         <!-- Footer -->
@@ -54,4 +67,5 @@
         </footer>
     </div>
 </body>
+
 </html>
