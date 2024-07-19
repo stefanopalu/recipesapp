@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="recipesstyles.css">
     <script src="login.js" defer></script>
     <script src="signup.js" defer></script>
+    <script src="session.js" defer></script>
 </head>
 
 <body>
@@ -19,13 +20,15 @@
                 <ul class="nav-list">
                     <!-- Styled HTML list for navigation -->
                     <li role="menuitem"><a href="recipessearch.html" title="Search Recipes">Search Recipes</a></li>
-                    <li role="menuitem" aria-current="page"><a href="index.html" title="Go to HomePage">Home</a></li>
+                    <!-- Login/Logout buttons -->
+                    <li id="loginButton" role="menuitem"><a href="index.html" title="Login">Login</a></li>
+                    <li id="logoutButton" role="menuitem" style="display:none;"><a href="#" title="Logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
         <main role="main" class="index-page-container">
             <!-- Login form (initially visible) -->
-            <div class="form-section">
+            <div id="loginFormSection" class="form-section">
                 <h2>Login</h2>
                 <form id="loginForm" action="login.php" method="POST">
                     <label for="username">Username:</label>
@@ -34,11 +37,11 @@
                     <input type="password" id="password" name="password" required>
                     <button type="submit">Login</button>
                 </form>
-                <p>Don't have an account? <a href="#signupForm">Sign Up</a></p>
+                <p>Don't have an account? <a href="#" id="showSignup">Sign Up</a></p>
             </div>
 
             <!-- Sign-Up form (initially hidden) -->
-            <div class="form-section" style="display:none;">
+            <div id="signupFormSection" class="form-section" style="display:none;">
                 <h2>Sign Up</h2>
                 <form id="signupForm" action="signup.php" method="POST">
                     <label for="signupUsername">Username:</label>
@@ -53,7 +56,7 @@
                     <input type="email" id="signupEmail" name="email" required>
                     <button type="submit">Sign Up</button>
                 </form>
-                <p>Already have an account? <a href="#loginForm">Login</a></p>
+                <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
             </div>
         </main>
         <!-- Footer -->

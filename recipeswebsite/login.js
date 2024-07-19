@@ -2,6 +2,11 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    const loginFormSection = document.getElementById('loginFormSection');
+    const signupFormSection = document.getElementById('signupFormSection');
+    const showSignupLink = document.getElementById('showSignup');
+    const showLoginLink = document.getElementById('showLogin');
     const profileContainer = document.querySelector('.profile-container');
 
     // Handle login form submission
@@ -38,6 +43,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error:', error);
                 alert('An error occurred. Try again.');
             });
+        });
+    }
+
+    // Show signup form and hide login form
+    if (showSignupLink) {
+        showSignupLink.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            loginFormSection.style.display = 'none';
+            signupFormSection.style.display = 'block';
+        });
+    }
+
+    // Show login form and hide signup form
+    if (showLoginLink) {
+        showLoginLink.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            signupFormSection.style.display = 'none';
+            loginFormSection.style.display = 'block';
         });
     }
 

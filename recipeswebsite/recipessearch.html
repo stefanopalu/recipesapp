@@ -7,6 +7,7 @@
     <title>RecipesSearch</title>
     <link rel="stylesheet" href="recipesstyles.css">
     <script src="recipes_search.js" defer></script>
+    <script src="session.js" defer></script>
 </head>
 
 <body>
@@ -17,8 +18,10 @@
             <nav role="navigation" aria-label="Main Navigation">
                 <ul class="nav-list">
                     <!-- Styled HTML list for navigation -->
-                    <li role="menuitem"><a href="recipessearch.html" title="Search Recipes">Search Recipes</a></li>
                     <li role="menuitem" aria-current="page"><a href="index.html" title="Go to HomePage">Home</a></li>
+                    <!-- Login/Logout buttons -->
+                    <li id="loginButton" role="menuitem"><a href="index.html" title="Login">Login</a></li>
+                    <li id="logoutButton" role="menuitem" style="display:none;"><a href="#" title="Logout">Logout</a></li>
                 </ul>
             </nav>
         </header>

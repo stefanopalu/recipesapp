@@ -2,6 +2,9 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     const signupForm = document.getElementById('signupForm');
+    const loginFormSection = document.getElementById('loginFormSection');
+    const signupFormSection = document.getElementById('signupFormSection');
+    const showLoginLink = document.getElementById('showLogin');
 
     if (signupForm) {
         signupForm.addEventListener('submit', (event) => {
@@ -29,13 +32,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(data => {
                     alert(data); // Show signup result message
                     if (data.includes('Signup successful')) {
-                        // Optionally, redirect or perform further actions
+                        // Optionally, redirect or switch to the login form
+                        loginFormSection.style.display = 'block';
+                        signupFormSection.style.display = 'none';
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     alert('An error occurred. Please try again.');
                 });
+        });
+    }
+
+    // Show login form and hide signup form
+    if (showLoginLink) {
+        showLoginLink.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            signupFormSection.style.display = 'none';
+            loginFormSection.style.display = 'block';
         });
     }
 });
