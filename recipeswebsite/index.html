@@ -7,6 +7,7 @@
     <title>RecipesApp</title>
     <link rel="stylesheet" href="recipesstyles.css">
     <script src="login.js" defer></script>
+    <script src="signup.js" defer></script>
 </head>
 
 <body>
@@ -24,24 +25,28 @@
         </header>
         <main role="main" class="index-page-container">
             <!-- Login form (initially visible) -->
-            <div id="loginForm" class="form-section">
+            <div class="form-section">
                 <h2>Login</h2>
-                <form>
-                    <label for="loginUsername">Username:</label>
-                    <input type="text" id="loginUsername" name="username" required>
-                    <label for="loginPassword">Password:</label>
-                    <input type="password" id="loginPassword" name="password" required>
+                <form id="loginForm" action="login.php" method="POST">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
                     <button type="submit">Login</button>
                 </form>
                 <p>Don't have an account? <a href="#signupForm">Sign Up</a></p>
             </div>
 
             <!-- Sign-Up form (initially hidden) -->
-            <div id="signupForm" class="form-section" style="display:none;">
+            <div class="form-section" style="display:none;">
                 <h2>Sign Up</h2>
-                <form>
+                <form id="signupForm" action="signup.php" method="POST">
                     <label for="signupUsername">Username:</label>
                     <input type="text" id="signupUsername" name="username" required>
+                    <label for="signupFirstname">First Name:</label>
+                    <input type="text" id="signupFirstname" name="firstname" required>
+                    <label for="signupLastname">Last Name:</label>
+                    <input type="text" id="signupLastname" name="lastname" required>
                     <label for="signupPassword">Password:</label>
                     <input type="password" id="signupPassword" name="password" required>
                     <label for="signupEmail">Email:</label>
