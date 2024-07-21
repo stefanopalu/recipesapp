@@ -19,8 +19,12 @@ $recipeId = intval($recipeId);
 $rating = intval($rating);
 
 try {
-    $query = $pdo->prepare("INSERT INTO ratings (recipe_id, rating) VALUES (?, ?) ON DUPLICATE KEY UPDATE rating = ?");
-    $query->execute([$recipeId, $rating, $rating]);
+    $query = $pdo->prepare("
+    INSERT INTO ratings (recipe_id, user_id, rating)
+    VALUES (?, ?, ?)
+    ON DUPLICATE KEY UPDATE rating = ?
+    ");
+    $query->execute([$recipeId, $userId, $rating, $rating]);
 
     if ($query->rowCount() > 0) {
         echo json_encode(['status' => 'success', 'message' => 'Rating saved']);

@@ -898,6 +898,16 @@ COMMIT;
 ALTER TABLE ratings
 ADD UNIQUE KEY unique_rating (recipe_id, user_id);
 
+ALTER TABLE ratings
+ADD CONSTRAINT UNIQUE (recipe_id, user_id);
+
+ALTER TABLE ratings
+CHANGE value rating INT NOT NULL;
+
+ALTER TABLE ratings
+ADD CONSTRAINT fk_recipe_id FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id),
+ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
