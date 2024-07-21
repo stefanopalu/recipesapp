@@ -39,7 +39,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    /// Function to fetch recipes by category or ingredient
+
+    // Add event listeners to cooking time buttons
+    const cookingTimeButtons = document.querySelectorAll('.time-buttons .button-container button');
+
+    cookingTimeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const timeId = button.dataset.timeId;
+            console.log(`Button clicked! Cooking Time ID: ${timeId}`);
+            fetchRecipes(`cooking_time=${encodeURIComponent(timeId)}`)
+                .then(data => {
+                    console.log('Data received from get_recipes.php:', data);
+                    updateRecipeCards(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching recipes by cooking time:', error);
+                });
+        });
+    });
+
+
+    /// Function to fetch recipes by category, ingredient or cooking time
     function fetchRecipes(params) {
         return fetch(`get_recipes.php?${params}`)
             .then(response => {

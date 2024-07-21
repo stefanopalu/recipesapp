@@ -335,6 +335,56 @@ button:hover {
     background-image: url(images/peas.jpg);
 }
 
+
+
+
+.time-buttons {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.time-buttons .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-buttons button {
+    width: 100%;
+    padding-bottom: 100%; 
+    border: none;
+    border-radius: 50%; 
+    background-size: cover;
+    background-position: center;
+}
+
+.time-buttons .timebutton-text {
+    margin-top: 10px;
+    font-size: 1em;
+    text-align: center;
+    color: var(--accent-color);
+}
+
+.nocooking-btn {
+    background-image: url();
+}
+.lessthanten-btn {
+    background-image: url();
+}
+.tentothirty-btn {
+    background-image: url();
+}
+.thirtytosixty-btn {
+    background-image: url();
+}
+.onetotwohours-btn {
+    background-image: url();
+}
+
+
 .search-results {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

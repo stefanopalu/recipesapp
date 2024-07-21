@@ -71,19 +71,66 @@ function fetchRecipesByIngredient($ingredient_id) {
     return $recipes;
 }
 
-// Check if category_id or ingredient_id parameter exists in GET request
+
+
+
+// Function to fetch recipes by cooking time
+function fetchRecipesByCookingTime($time_category) {
+    global $conn;
+
+    // Define SQL query and prepare SQL statement using the db connection
+    $sql = "SELECT recipe_id, recipe_name, category_id, image_path, cooking_time FROM recipes WHERE cooking_time = ?";
+    $stmt = $conn->prepare($sql);
+
+    // Check if preparing SQL statement fails
+    if ($stmt === false) {
+        die('MySQL prepare error: ' . htmlspecialchars($conn->error));
+    }
+
+    // Bind parameter $time_category to the prepared statement and execute it
+    $stmt->bind_param('i', $time_category);
+    $stmt->execute();
+
+    // Get result set from the executed statement
+    $result = $stmt->get_result();
+
+    // Iterate through each row of the result set and append it in the array $recipes
+    $recipes = [];
+    while ($row = $result->fetch_assoc()) {
+        $recipes[] = $row;
+    }
+
+    // Free result set and close statement
+    $result->free();
+    $stmt->close();
+
+    return $recipes;
+}
+
+
+
+// Check if category_id, ingredient_id or cooking_time parameter exists in GET request
 if (isset($_GET['category_id'])) {
     // Sanitize the input to prevent SQL injection
     $category_id = intval($_GET['category_id']); // Convert to integer for safety
 
     // Fetch recipes by category
     $recipes = fetchRecipesByCategory($category_id);
+
 } elseif (isset($_GET['ingredient_id'])) {
     // Sanitize the input to prevent SQL injection
     $ingredient_id = intval($_GET['ingredient_id']); // Convert to integer for safety
 
     // Fetch recipes by ingredient
     $recipes = fetchRecipesByIngredient($ingredient_id);
+    
+} elseif (isset($_GET['cooking_time'])) { // New condition to check for cooking_time parameter
+    // Sanitize the input to prevent SQL injection
+    $cooking_time = intval($_GET['cooking_time']); // Convert to integer for safety
+
+    // Fetch recipes by cooking time
+    $recipes = fetchRecipesByCookingTime($cooking_time);
+
 } else {
     // Handle case where neither category_id nor ingredient_id parameter is provided
     http_response_code(400); // Bad Request
