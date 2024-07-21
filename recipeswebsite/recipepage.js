@@ -25,8 +25,17 @@ document.addEventListener('DOMContentLoaded', function() {
         // Fetch and display the current rating
         fetch(`get_recipe_rating.php?recipe_id=${recipeId}`)
             .then(response => response.json())
-            .then(data => updateRatingDisplay(data))
-            .catch(error => console.error('Error fetching rating:', error));
+            .then(data => {
+                if (data.status === 'success') {
+                    averageRatingElement.textContent = data.rating_text;
+                    setInitialRating(data.rating);
+                } else {
+                    console.error('Error fetching rating:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching rating:', error);
+            });
 
         // Set up event listeners for stars
         stars.forEach(star => {
@@ -73,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             if (favoriteIcon) {
-                favoriteIcon.addEventListener('click', () => toggleFavorite());
+                favoriteIcon.addEventListener('click', toggleFavorite);
             }
         } else {
             console.error('No recipe data received');
@@ -111,6 +120,8 @@ document.addEventListener('DOMContentLoaded', function() {
         stars.forEach(star => {
             if (star.getAttribute('data-value') <= rating) {
                 star.classList.add('filled');
+            } else {
+                star.classList.remove('filled');
             }
         });
     }

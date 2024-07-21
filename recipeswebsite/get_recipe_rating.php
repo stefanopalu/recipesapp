@@ -1,46 +1,38 @@
 <?php
-// Enable error reporting for debugging purposes
+header('Content-Type: application/json');
+
+// Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Check if recipe_id is set
-if (isset($_GET['recipe_id'])) {
-    $recipeId = intval($_GET['recipe_id']); // Sanitize input
+include 'database_connection.php';
 
-    // Database connection
-    $mysqli = new mysqli('localhost', 'username', 'password', 'database');
+$recipeId = $_GET['recipe_id'] ?? null;
 
-    // Check for database connection error
-    if ($mysqli->connect_error) {
-        http_response_code(500);
-        echo json_encode(['status' => 'error', 'message' => 'Database connection failed']);
-        exit();
-    }
+if (!isset($recipeId)) {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid recipe ID']);
+    exit;
+}
 
-    // Prepare and execute the SQL query
-    $stmt = $mysqli->prepare("SELECT AVG(rating) AS average_rating FROM ratings WHERE recipe_id = ?");
-    if (!$stmt) {
-        http_response_code(500);
-        echo json_encode(['status' => 'error', 'message' => 'Failed to prepare SQL statement']);
-        exit();
-    }
+$recipeId = intval($recipeId);
 
-    $stmt->bind_param('i', $recipeId);
-    $stmt->execute();
-    $result = $stmt->get_result();
+try {
+    $query = $pdo->prepare("SELECT AVG(rating) as average_rating, COUNT(*) as rating_count FROM ratings WHERE recipe_id = ?");
+    $query->execute([$recipeId]);
+    $result = $query->fetch(PDO::FETCH_ASSOC);
 
     if ($result) {
-        $data = $result->fetch_assoc();
-        $averageRating = $data['average_rating'] ? $data['average_rating'] : 0; // Default to 0 if null
-        echo json_encode(['status' => 'success', 'rating' => $averageRating]);
-    } else {
-        http_response_code(500);
-        echo json_encode(['status' => 'error', 'message' => 'Failed to fetch rating']);
-    }
+        $averageRating = round($result['average_rating'], 1);
+        $ratingCount = $result['rating_count'];
 
-    $stmt->close();
-    $mysqli->close();
-} else {
-    http_response_code(400);
-    echo json_encode(['status' => 'error', 'message' => 'Missing recipe_id']);
+        $ratingText = $ratingCount > 0 ? "Current average rating: {$averageRating} Stars" : "No user ratings yet. Be the first to rate this recipe!";
+        echo json_encode(['status' => 'success', 'rating' => $averageRating, 'rating_text' => $ratingText]);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Failed to retrieve rating']);
+    }
+} catch (PDOException $e) {
+    echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
+} catch (Exception $e) {
+    echo json_encode(['status' => 'error', 'message' => 'General error: ' . $e->getMessage()]);
 }
+?>
