@@ -128,6 +128,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function setRating(event) {
         const rating = event.target.getAttribute('data-value');
+        const userId = getUserId(); // Implement this function to retrieve the user ID
+    
         stars.forEach(star => {
             if (star.getAttribute('data-value') <= rating) {
                 star.classList.add('filled');
@@ -135,18 +137,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 star.classList.remove('filled');
             }
         });
-
+    
         fetch('save_rating.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `recipeId=${recipeId}&rating=${rating}`
+            body: `recipeId=${recipeId}&userId=${userId}&rating=${rating}`
         })
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                averageRatingElement.textContent = `You were the first to rate this recipe!`;
+                averageRatingElement.textContent = 'Rating saved successfully!';
             } else {
                 alert('Failed to save rating: ' + data.message);
             }
@@ -155,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error saving rating:', error);
             alert('An error occurred. Please try again.');
         });
-    }
+    }    
 
     function addHover(event) {
         const rating = event.target.getAttribute('data-value');

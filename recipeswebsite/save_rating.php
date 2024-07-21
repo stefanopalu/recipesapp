@@ -1,28 +1,31 @@
 <?php
 header('Content-Type: application/json');
 
-// Enable error reporting
+// Enable error reporting (remove or adjust for production)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include 'database_connection.php';
 
 $recipeId = $_POST['recipeId'] ?? null;
+$userId = $_POST['userId'] ?? null; // Ensure userId is provided
 $rating = $_POST['rating'] ?? null;
 
-if (!isset($recipeId) || !isset($rating)) {
+// Validate inputs
+if (!is_numeric($recipeId) || !is_numeric($userId) || !is_numeric($rating) || $rating < 1 || $rating > 5) {
     echo json_encode(['status' => 'error', 'message' => 'Invalid input']);
     exit;
 }
 
 $recipeId = intval($recipeId);
+$userId = intval($userId);
 $rating = intval($rating);
 
 try {
     $query = $pdo->prepare("
-    INSERT INTO ratings (recipe_id, user_id, rating)
-    VALUES (?, ?, ?)
-    ON DUPLICATE KEY UPDATE rating = ?
+        INSERT INTO ratings (recipe_id, user_id, value)
+        VALUES (?, ?, ?)
+        ON DUPLICATE KEY UPDATE value = ?
     ");
     $query->execute([$recipeId, $userId, $rating, $rating]);
 
