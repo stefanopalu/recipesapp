@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Function to get query parameter value by name
     function getQueryParameter(name) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(name);
@@ -11,70 +10,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const stars = document.querySelectorAll('.rating-star');
 
     if (recipeId) {
+        // Fetch and update recipe details
         fetch(`get_recipe_details.php?recipe_id=${recipeId}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Network response was not ok: ${response.status}`);
-                }
-                return response.json(); // Parse response as JSON
-            })
-            .then(data => {
-                console.log('Data received from get_recipe_details.php:', data);
-                updateRecipeDetails(data);
-            })
-            .catch(error => {
-                console.error('Error fetching recipe details:', error);
-            });
+            .then(response => response.json())
+            .then(data => updateRecipeDetails(data))
+            .catch(error => console.error('Error fetching recipe details:', error));
 
         // Check if the recipe is already in favorites
         fetch(`check_favorite.php?recipe_id=${recipeId}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Network response was not ok: ${response.status}`);
-                }
-                return response.json(); // Parse response as JSON
-            })
-            .then(data => {
-                if (data.status === 'success') {
-                    if (data.favorited) {
-                        favoriteIcon.classList.remove('far', 'fa-heart');
-                        favoriteIcon.classList.add('fas', 'fa-heart', 'favorited');
-                    } else {
-                        favoriteIcon.classList.remove('fas', 'fa-heart', 'favorited');
-                        favoriteIcon.classList.add('far', 'fa-heart');
-                    }
-                } else {
-                    console.error('Error checking favorite status:', data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error checking favorite status:', error);
-            });
+            .then(response => response.json())
+            .then(data => updateFavoriteIcon(data))
+            .catch(error => console.error('Error checking favorite status:', error));
 
-        // Check and fetch the rating for the recipe
+        // Fetch and display the current rating
         fetch(`get_recipe_rating.php?recipe_id=${recipeId}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Network response was not ok: ${response.status}`);
-                }
-                return response.json(); // Parse response as JSON
-            })
-            .then(data => {
-                if (data.status === 'success') {
-                    setInitialRating(data.rating);
-                    updateAverageRating(data.averageRating); // Add this line
-                } else {
-                    console.error('Error fetching rating:', data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching rating:', error);
-            });
+            .then(response => response.json())
+            .then(data => updateRatingDisplay(data))
+            .catch(error => console.error('Error fetching rating:', error));
+
+        // Set up event listeners for stars
+        stars.forEach(star => {
+            star.addEventListener('click', setRating);
+            star.addEventListener('mouseover', addHover);
+            star.addEventListener('mouseout', removeHover);
+        });
     } else {
         console.error('No recipe_id found in the URL');
     }
 
-    // Function to update the recipe details on the page
     function updateRecipeDetails(recipe) {
         if (recipe) {
             document.getElementById('recipe-title').textContent = recipe.recipe_name;
@@ -82,34 +45,27 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('prep-time').textContent = recipe.prep_time;
             document.getElementById('cook-time').textContent = recipe.cook_time;
 
-            // Set recipe image
             const recipeImage = document.getElementById('recipe-image');
-            recipeImage.src = recipe.image_path; // Assuming recipe-image is the ID of your <img> element
+            recipeImage.src = recipe.image_path;
 
-            // Check if cooking_steps is a JSON string within an array
-            let cookingSteps = recipe.instructions_steps;
-            if (Array.isArray(cookingSteps) && cookingSteps.length === 1) {
-                // Parse the JSON string inside the array
-                cookingSteps = JSON.parse(cookingSteps[0]);
-            }
-
-            // Populate ingredients
             const ingredientsList = document.getElementById('ingredients-list');
-            ingredientsList.innerHTML = ''; // Clear any existing content
+            ingredientsList.innerHTML = '';
             recipe.ingredients.forEach(ingredient => {
                 const li = document.createElement('li');
                 li.textContent = `${ingredient.ingredient_name} ${ingredient.quantity}`;
                 ingredientsList.appendChild(li);
             });
 
-            // Populate cooking steps
             const cookingStepsList = document.getElementById('cooking-steps-list');
-            cookingStepsList.innerHTML = ''; // Clear any existing content
-
+            cookingStepsList.innerHTML = '';
+            let cookingSteps = recipe.instructions_steps;
+            if (Array.isArray(cookingSteps) && cookingSteps.length === 1) {
+                cookingSteps = JSON.parse(cookingSteps[0]);
+            }
             if (Array.isArray(cookingSteps)) {
                 cookingSteps.forEach(step => {
                     const li = document.createElement('li');
-                    li.textContent = step.trim(); // Trim any leading/trailing whitespace
+                    li.textContent = step.trim();
                     cookingStepsList.appendChild(li);
                 });
             } else {
@@ -117,47 +73,47 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             if (favoriteIcon) {
-                favoriteIcon.addEventListener('click', () => {
-                    const isFavorited = favoriteIcon.classList.contains('favorited');
-
-                    fetch('save_favorite.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: `recipeId=${recipeId}&favorited=${!isFavorited}`
-                    })
-                    .then(response => response.text())
-                    .then(data => {
-                        if (data === 'success') {
-                            if (isFavorited) {
-                                favoriteIcon.classList.remove('fas', 'fa-heart', 'favorited');
-                                favoriteIcon.classList.add('far', 'fa-heart');
-                            } else {
-                                favoriteIcon.classList.remove('far', 'fa-heart');
-                                favoriteIcon.classList.add('fas', 'fa-heart', 'favorited');
-                            }
-                        } else {
-                            alert('Failed to update favorite status: ' + data);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error updating favorite status:', error);
-                        alert('An error occurred. Please try again.');
-                    });
-                });
+                favoriteIcon.addEventListener('click', () => toggleFavorite());
             }
         } else {
             console.error('No recipe data received');
         }
     }
 
-    // Rating star functionality
-    stars.forEach(star => {
-        star.addEventListener('click', setRating);
-        star.addEventListener('mouseover', addHover);
-        star.addEventListener('mouseout', removeHover);
-    });
+    function updateFavoriteIcon(data) {
+        if (data.status === 'success') {
+            if (data.favorited) {
+                favoriteIcon.classList.remove('far', 'fa-heart');
+                favoriteIcon.classList.add('fas', 'fa-heart', 'favorited');
+            } else {
+                favoriteIcon.classList.remove('fas', 'fa-heart', 'favorited');
+                favoriteIcon.classList.add('far', 'fa-heart');
+            }
+        } else {
+            console.error('Error checking favorite status:', data.message);
+        }
+    }
+
+    function updateRatingDisplay(data) {
+        if (data.status === 'success') {
+            setInitialRating(data.rating);
+            if (data.rating > 0) {
+                averageRatingElement.textContent = `You were the first to rate this recipe!`;
+            } else {
+                averageRatingElement.textContent = `No user ratings yet. Be the first to rate this recipe!`;
+            }
+        } else {
+            console.error('Error fetching rating:', data.message);
+        }
+    }
+
+    function setInitialRating(rating) {
+        stars.forEach(star => {
+            if (star.getAttribute('data-value') <= rating) {
+                star.classList.add('filled');
+            }
+        });
+    }
 
     function setRating(event) {
         const rating = event.target.getAttribute('data-value');
@@ -169,7 +125,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Save the rating to the server
         fetch('save_rating.php', {
             method: 'POST',
             headers: {
@@ -179,10 +134,10 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status !== 'success') {
-                alert('Failed to save rating: ' + data.message);
+            if (data.status === 'success') {
+                averageRatingElement.textContent = `You were the first to rate this recipe!`;
             } else {
-                updateAverageRating(data.newAverageRating); // Update average rating
+                alert('Failed to save rating: ' + data.message);
             }
         })
         .catch(error => {
@@ -209,15 +164,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function setInitialRating(rating) {
-        stars.forEach(star => {
-            if (star.getAttribute('data-value') <= rating) {
-                star.classList.add('filled');
+    function toggleFavorite() {
+        const isFavorited = favoriteIcon.classList.contains('favorited');
+        fetch('save_favorite.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `recipeId=${recipeId}&favorited=${!isFavorited}`
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data === 'success') {
+                if (isFavorited) {
+                    favoriteIcon.classList.remove('fas', 'fa-heart', 'favorited');
+                    favoriteIcon.classList.add('far', 'fa-heart');
+                } else {
+                    favoriteIcon.classList.remove('far', 'fa-heart');
+                    favoriteIcon.classList.add('fas', 'fa-heart', 'favorited');
+                }
+            } else {
+                alert('Failed to update favorite status: ' + data);
             }
+        })
+        .catch(error => {
+            console.error('Error updating favorite status:', error);
+            alert('An error occurred. Please try again.');
         });
-    }
-
-    function updateAverageRating(averageRating) {
-        averageRatingElement.textContent = `Average Rating: ${averageRating.toFixed(1)}`;
     }
 });
