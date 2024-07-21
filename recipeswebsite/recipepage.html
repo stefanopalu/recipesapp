@@ -36,10 +36,20 @@
                         <h2 class="recipe-title" id="recipe-title">Recipe Title</h2>
                         <i id="favorite-icon" class="far fa-heart" title="Save to Favorites"></i>
                     </div>
+                    <div class="rating-container">
+                        <div id="average-rating">No user ratings yet. Be the first to rate this recipe!</div>
+                        <div id="rating-stars">
+                            <i class="fa fa-star rating-star" data-value="1"></i>
+                            <i class="fa fa-star rating-star" data-value="2"></i>
+                            <i class="fa fa-star rating-star" data-value="3"></i>
+                            <i class="fa fa-star rating-star" data-value="4"></i>
+                            <i class="fa fa-star rating-star" data-value="5"></i>
+                        </div>
+                    </div>
                     <div class="recipepicture">
                         <img id="recipe-image" src="" alt="Recipe Image">
                     </div>
-                    <p id="recipe-description">Descriptio here </p>
+                    <p id="recipe-description">Description here</p>
                 </div>
                 <div class="time-blocks">
                     <div>
@@ -58,6 +68,22 @@
                 <div class="cooking-instructions">
                     <h3>Cooking Steps</h3>
                     <ol id="cooking-steps-list"></ol>
+                </div>
+                <!-- Rating Form -->
+                <div class="rating-form">
+                    <h3>Rate this Recipe</h3>
+                    <form id="rating-form">
+                        <input type="hidden" id="recipe-id" value="1"> <!-- Example recipe ID -->
+                        <label for="rating">Select your rating:</label>
+                        <select id="rating">
+                            <option value="1">1 Star</option>
+                            <option value="2">2 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="5">5 Stars</option>
+                        </select>
+                        <button type="submit">Submit Rating</button>
+                    </form>
                 </div>
             </article>
         </main>

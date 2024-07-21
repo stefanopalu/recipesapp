@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const recipeId = getQueryParameter('recipe_id');
     const favoriteIcon = document.getElementById('favorite-icon');
+    const averageRatingElement = document.getElementById('average-rating');
+    const stars = document.querySelectorAll('.rating-star');
 
     if (recipeId) {
         fetch(`get_recipe_details.php?recipe_id=${recipeId}`)
@@ -26,28 +28,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Check if the recipe is already in favorites
         fetch(`check_favorite.php?recipe_id=${recipeId}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.status}`);
-            }
-            return response.json(); // Parse response as JSON
-        })
-        .then(data => {
-            if (data.status === 'success') {
-                if (data.favorited) {
-                    favoriteIcon.classList.remove('far', 'fa-heart');
-                    favoriteIcon.classList.add('fas', 'fa-heart', 'favorited');
-                } else {
-                    favoriteIcon.classList.remove('fas', 'fa-heart', 'favorited');
-                    favoriteIcon.classList.add('far', 'fa-heart');
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.status}`);
                 }
-            } else {
-                console.error('Error checking favorite status:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error checking favorite status:', error);
-        });
+                return response.json(); // Parse response as JSON
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    if (data.favorited) {
+                        favoriteIcon.classList.remove('far', 'fa-heart');
+                        favoriteIcon.classList.add('fas', 'fa-heart', 'favorited');
+                    } else {
+                        favoriteIcon.classList.remove('fas', 'fa-heart', 'favorited');
+                        favoriteIcon.classList.add('far', 'fa-heart');
+                    }
+                } else {
+                    console.error('Error checking favorite status:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error checking favorite status:', error);
+            });
+
+        // Check and fetch the rating for the recipe
+        fetch(`get_recipe_rating.php?recipe_id=${recipeId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.status}`);
+                }
+                return response.json(); // Parse response as JSON
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    setInitialRating(data.rating);
+                    updateAverageRating(data.averageRating); // Add this line
+                } else {
+                    console.error('Error fetching rating:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching rating:', error);
+            });
     } else {
         console.error('No recipe_id found in the URL');
     }
@@ -97,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (favoriteIcon) {
                 favoriteIcon.addEventListener('click', () => {
                     const isFavorited = favoriteIcon.classList.contains('favorited');
-        
+
                     fetch('save_favorite.php', {
                         method: 'POST',
                         headers: {
@@ -128,5 +150,74 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             console.error('No recipe data received');
         }
+    }
+
+    // Rating star functionality
+    stars.forEach(star => {
+        star.addEventListener('click', setRating);
+        star.addEventListener('mouseover', addHover);
+        star.addEventListener('mouseout', removeHover);
+    });
+
+    function setRating(event) {
+        const rating = event.target.getAttribute('data-value');
+        stars.forEach(star => {
+            if (star.getAttribute('data-value') <= rating) {
+                star.classList.add('filled');
+            } else {
+                star.classList.remove('filled');
+            }
+        });
+
+        // Save the rating to the server
+        fetch('save_rating.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `recipeId=${recipeId}&rating=${rating}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status !== 'success') {
+                alert('Failed to save rating: ' + data.message);
+            } else {
+                updateAverageRating(data.newAverageRating); // Update average rating
+            }
+        })
+        .catch(error => {
+            console.error('Error saving rating:', error);
+            alert('An error occurred. Please try again.');
+        });
+    }
+
+    function addHover(event) {
+        const rating = event.target.getAttribute('data-value');
+        stars.forEach(star => {
+            if (star.getAttribute('data-value') <= rating) {
+                star.classList.add('filled');
+            }
+        });
+    }
+
+    function removeHover(event) {
+        const rating = document.querySelector('.rating-star.filled:last-of-type')?.getAttribute('data-value') || 0;
+        stars.forEach(star => {
+            if (star.getAttribute('data-value') > rating) {
+                star.classList.remove('filled');
+            }
+        });
+    }
+
+    function setInitialRating(rating) {
+        stars.forEach(star => {
+            if (star.getAttribute('data-value') <= rating) {
+                star.classList.add('filled');
+            }
+        });
+    }
+
+    function updateAverageRating(averageRating) {
+        averageRatingElement.textContent = `Average Rating: ${averageRating.toFixed(1)}`;
     }
 });

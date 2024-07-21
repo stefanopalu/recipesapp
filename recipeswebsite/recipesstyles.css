@@ -403,7 +403,7 @@ button:hover {
     color: var(--accent-color);
 }
 
-.recipepicture img{
+.recipepicture img {
     width: 100%;
 }
 
@@ -420,4 +420,59 @@ button:hover {
 
 .cooking-instructions {
     border-top: 1px solid var(--accent-color);
+}
+
+/* Rating Stars Styles */
+.rating-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 20px 0;
+}
+
+#average-rating {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+#rating-stars {
+    font-size: 1.5em;
+    color: #ddd;
+}
+
+.rating-star {
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.rating-star.filled {
+    color: #ffca28;
+}
+
+/* Rating Form Styles */
+.rating-form {
+    margin-top: 20px;
+}
+
+.rating-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.rating-form select {
+    padding: 5px;
+    font-size: 1em;
+}
+
+.rating-form button {
+    padding: 10px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.rating-form button:hover {
+    background-color: var(--primary-color);
 }
