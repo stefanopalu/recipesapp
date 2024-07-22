@@ -71,15 +71,28 @@ function fetchRecipesByIngredient($ingredient_id) {
     return $recipes;
 }
 
-
-
-
 // Function to fetch recipes by cooking time
 function fetchRecipesByCookingTime($time_category) {
     global $conn;
 
-    // Define SQL query and prepare SQL statement using the db connection
-    $sql = "SELECT recipe_id, recipe_name, category_id, image_path, cooking_time FROM recipes WHERE cooking_time = ?";
+    $cookingTimes = [];
+    switch ($time_category) {
+        case 'Short':
+            $cookingTimes = ['no cooking required', 'less than 10 mins','10 to 30 mins'];
+            break;
+        case 'Medium':
+            $cookingTimes = ['30 mins to 1 hour', '1 to 2 hours'];
+            break;
+        case 'Long':
+            $cookingTimes = ['over 2 hours'];
+            break;
+    }
+
+    // Generate a string of placeholders for the SQL query
+    $placeholders = str_repeat('?,', count($cookingTimes) - 1) . '?';
+
+    // Define SQL query with the generated placeholders and prepare SQL statement using the db connection
+    $sql = "SELECT recipe_id, recipe_name, category_id, image_path, cooking_time FROM recipes WHERE cooking_time IN ($placeholders)";
     $stmt = $conn->prepare($sql);
 
     // Check if preparing SQL statement fails
@@ -88,7 +101,7 @@ function fetchRecipesByCookingTime($time_category) {
     }
 
     // Bind parameter $time_category to the prepared statement and execute it
-    $stmt->bind_param('i', $time_category);
+    $stmt->bind_param(str_repeat('s', count($cookingTimes)), ...$cookingTimes);
     $stmt->execute();
 
     // Get result set from the executed statement
@@ -107,8 +120,6 @@ function fetchRecipesByCookingTime($time_category) {
     return $recipes;
 }
 
-
-
 // Check if category_id, ingredient_id or cooking_time parameter exists in GET request
 if (isset($_GET['category_id'])) {
     // Sanitize the input to prevent SQL injection
@@ -125,8 +136,8 @@ if (isset($_GET['category_id'])) {
     $recipes = fetchRecipesByIngredient($ingredient_id);
     
 } elseif (isset($_GET['cooking_time'])) { // New condition to check for cooking_time parameter
-    // Sanitize the input to prevent SQL injection
-    $cooking_time = intval($_GET['cooking_time']); // Convert to integer for safety
+
+    $cooking_time = $_GET['cooking_time']; // No need to convert to integer, it's a string
 
     // Fetch recipes by cooking time
     $recipes = fetchRecipesByCookingTime($cooking_time);

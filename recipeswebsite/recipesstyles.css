@@ -335,25 +335,20 @@ button:hover {
     background-image: url(images/peas.jpg);
 }
 
-
-
-
 .time-buttons {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
-    width: 100%;
-    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+    flex-wrap: wrap;
 }
 
 .time-buttons .button-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .time-buttons button {
-    width: 100%;
+    width: 150px;
     padding-bottom: 100%; 
     border: none;
     border-radius: 50%; 
@@ -368,22 +363,15 @@ button:hover {
     color: var(--accent-color);
 }
 
-.nocooking-btn {
-    background-image: url();
+.short-btn {
+    background-image: url(images/short_time.png);
 }
-.lessthanten-btn {
-    background-image: url();
+.medium-btn {
+    background-image: url(images/medium_time.png);
 }
-.tentothirty-btn {
-    background-image: url();
+.long-btn {
+    background-image: url(images/long_time.png);
 }
-.thirtytosixty-btn {
-    background-image: url();
-}
-.onetotwohours-btn {
-    background-image: url();
-}
-
 
 .search-results {
     display: grid;

@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-
     // Add event listeners to cooking time buttons
     const cookingTimeButtons = document.querySelectorAll('.time-buttons .button-container button');
 
