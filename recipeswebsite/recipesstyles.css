@@ -335,6 +335,44 @@ button:hover {
     background-image: url(images/peas.jpg);
 }
 
+.time-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+    flex-wrap: wrap;
+}
+
+.time-buttons .button-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.time-buttons button {
+    width: 150px;
+    padding-bottom: 100%; 
+    border: none;
+    border-radius: 50%; 
+    background-size: cover;
+    background-position: center;
+}
+
+.time-buttons .timebutton-text {
+    margin-top: 10px;
+    font-size: 1em;
+    text-align: center;
+    color: var(--accent-color);
+}
+
+.short-btn {
+    background-image: url(images/short_time.png);
+}
+.medium-btn {
+    background-image: url(images/medium_time.png);
+}
+.long-btn {
+    background-image: url(images/long_time.png);
+}
+
 .search-results {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
