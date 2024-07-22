@@ -33,7 +33,3 @@ if ($stmt->affected_rows > 0) {
 } else {
     echo "Failed to update favorite status.";
 }
-
-$stmt->close();
-$conn->close();
-?>

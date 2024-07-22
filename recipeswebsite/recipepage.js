@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const recipeId = getQueryParameter('recipe_id');
     const favoriteIcon = document.getElementById('favorite-icon');
+    const ratingStars = document.querySelectorAll('#rating-stars .rating-star');
+    const submitRatingButton = document.getElementById('submit-rating');
+    let selectedRating = null; // Variable to store the selected rating
 
     if (recipeId) {
         fetch(`get_recipe_details.php?recipe_id=${recipeId}`)
@@ -59,6 +62,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('recipe-description').textContent = recipe.description;
             document.getElementById('prep-time').textContent = recipe.prep_time;
             document.getElementById('cook-time').textContent = recipe.cook_time;
+            
+            // Update average rating
+            const averageRatingElement = document.getElementById('average-rating');
+            averageRatingElement.textContent = recipe.avg_rating !== null ? `Average rating: ${recipe.avg_rating}` : 'No user ratings yet. Be the first to rate this recipe!';
 
             // Set recipe image
             const recipeImage = document.getElementById('recipe-image');
@@ -94,10 +101,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('No cooking steps found in the recipe data');
             }
 
+            // Handle star clicks to set the rating
+            ratingStars.forEach(star => {
+                star.addEventListener('click', function() {
+                    selectedRating = this.getAttribute('data-value');
+                    updateStarRating(selectedRating);
+                });
+            });
+
+            // Handle the submit button click
+            if (submitRatingButton) {
+                submitRatingButton.addEventListener('click', function() {
+                    if (selectedRating) {
+                        fetch('save_rating.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: `recipeId=${recipeId}&rating=${selectedRating}`
+                        })
+                        .then(response => response.text())
+                        .then(data => {
+                            if (data === 'success') {
+                                alert('Rating saved successfully!');
+                            } else {
+                                alert('Failed to save rating: ' + data);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error saving rating:', error);
+                            alert('An error occurred. Please try again.');
+                        });
+                    } else {
+                        alert('Please select a rating before submitting.');
+                    }
+                });
+            }
+
+            // Function to update the star rating display
+            function updateStarRating(rating) {
+                ratingStars.forEach(star => {
+                    star.classList.toggle('selected', star.getAttribute('data-value') <= rating);
+                });
+            }
+
+            // Handle favorite icon click
             if (favoriteIcon) {
                 favoriteIcon.addEventListener('click', () => {
                     const isFavorited = favoriteIcon.classList.contains('favorited');
-        
                     fetch('save_favorite.php', {
                         method: 'POST',
                         headers: {
@@ -130,3 +181,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+    

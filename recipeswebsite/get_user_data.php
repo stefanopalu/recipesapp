@@ -11,6 +11,7 @@ session_start();
 
 // Check if user is logged in
 if (!isset($_SESSION['username'])) {
+    header('Content-Type: application/json');
     echo json_encode(['status' => 'error', 'message' => 'User not logged in.']);
     exit();
 }
@@ -36,6 +37,7 @@ function getUserData($username, $conn) {
 $userData = getUserData($username, $conn);
 
 // Return user data as JSON response
+header('Content-Type: application/json');
 if ($userData) {
     echo json_encode([
         'status' => 'success',
