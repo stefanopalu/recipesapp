@@ -168,7 +168,7 @@ footer {
 }
 
 .user-info p {
-    font-size: 1em;
+    font-size: 1.5em;
     color: var(--primary-color); /* Adjusted color for better readability */
     margin: 0 20px 10px 0px;
     padding: 10px;
@@ -383,9 +383,7 @@ button:hover {
 .recipe-card {
     display: flex; 
     flex-direction: column; 
-    align-items: center; 
-    width: 200px;
-    margin-right: 20px; 
+    align-items: center;  
 }
 
 .recipe-button {

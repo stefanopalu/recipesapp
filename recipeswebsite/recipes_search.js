@@ -97,9 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const recipeTitle = document.createElement('h3');
             recipeTitle.textContent = recipe.recipe_name; // Replace with actual property from your JSON data
-            recipeCard.appendChild(recipeTitle);
-
             recipeCard.appendChild(recipeButton);
+            recipeCard.appendChild(recipeTitle);
             searchResultsContainer.appendChild(recipeCard);
         });
     }
