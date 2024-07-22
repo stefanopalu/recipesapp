@@ -168,13 +168,17 @@ footer {
 }
 
 .user-info p {
-    font-size: 1.5em;
-    color: var(--primary-color); /* Adjusted color for better readability */
+    font-size: 1em;
+    color: var(--primary-color);
+    /* Adjusted color for better readability */
     margin: 0 20px 10px 0px;
     padding: 10px;
-    background-color: #fff; /* Background color for the box */
-    border: 1px solid var(--secondary-color); /* Optional: Add a border */
-    border-radius: 10px; /* Optional: Rounded corners */
+    background-color: #fff;
+    /* Background color for the box */
+    border: 1px solid var(--secondary-color);
+    /* Optional: Add a border */
+    border-radius: 10px;
+    /* Optional: Rounded corners */
 }
 
 /* Recipes Search Styles */
@@ -186,7 +190,7 @@ footer {
 }
 
 .section-title {
-    font-size: 2.5em; 
+    font-size: 2.5em;
     margin-bottom: 20px;
     text-align: left;
     color: var(--accent-color);
@@ -196,12 +200,12 @@ footer {
 .section-title::after {
     content: '';
     display: block;
-    width: 100%; 
-    height: 3px; 
+    width: 100%;
+    height: 3px;
     background-color: var(--accent-color);
     position: absolute;
-    bottom: -5px; 
-    left: 0; 
+    bottom: -5px;
+    left: 0;
 }
 
 .category-buttons {
@@ -269,9 +273,9 @@ footer {
 
 .ingredient-buttons button {
     width: 100%;
-    padding-bottom: 100%; 
+    padding-bottom: 100%;
     border: none;
-    border-radius: 50%; 
+    border-radius: 50%;
     background-size: cover;
     background-position: center;
 }
@@ -335,44 +339,6 @@ button:hover {
     background-image: url(images/peas.jpg);
 }
 
-.time-buttons {
-    display: flex;
-    justify-content: space-around;
-    margin: 10px 0;
-    flex-wrap: wrap;
-}
-
-.time-buttons .button-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.time-buttons button {
-    width: 150px;
-    padding-bottom: 100%; 
-    border: none;
-    border-radius: 50%; 
-    background-size: cover;
-    background-position: center;
-}
-
-.time-buttons .timebutton-text {
-    margin-top: 10px;
-    font-size: 1em;
-    text-align: center;
-    color: var(--accent-color);
-}
-
-.short-btn {
-    background-image: url(images/short_time.png);
-}
-.medium-btn {
-    background-image: url(images/medium_time.png);
-}
-.long-btn {
-    background-image: url(images/long_time.png);
-}
-
 .search-results {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -381,9 +347,15 @@ button:hover {
 }
 
 .recipe-card {
-    display: flex; 
-    flex-direction: column; 
-    align-items: center;  
+    <<<<<<< Updated upstream display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    =======display: flex;
+    flex-direction: column;
+    align-items: center;
+    >>>>>>>Stashed changes width: 200px;
+    margin-right: 20px;
 }
 
 .recipe-button {
@@ -395,12 +367,15 @@ button:hover {
 
 .recipe-button img {
     width: 100%;
+    /* Make the image fill its container */
     border-radius: 5px;
     transition: transform 0.2s ease;
+    /* Smooth transition for hover effect */
 }
 
 .recipe-button:hover img {
     transform: scale(1.1);
+    /* Scale up the image slightly on hover */
 }
 
 .recipe-card h3 {
@@ -418,7 +393,7 @@ button:hover {
     background-color: var(--background-color);
 }
 
-.title-favorite-container {
+<<<<<<< Updated upstream .recipepicture img=======.title-favorite-container {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
@@ -426,8 +401,8 @@ button:hover {
 }
 
 .recipe-title {
-    font-size: 2.5em; 
-    margin-bottom: 10px;
+    font-size: 2.5em;
+    margin-bottom: 20px;
     text-align: left;
     color: var(--accent-color);
     position: relative;
@@ -440,13 +415,13 @@ button:hover {
 }
 
 .recipepicture img {
-    width: 100%;
+    >>>>>>>Stashed changes width: 100%;
 }
 
 .time-blocks {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly; 
+    justify-content: space-evenly;
     border-top: 1px solid var(--accent-color);
 }
 
@@ -458,51 +433,41 @@ button:hover {
     border-top: 1px solid var(--accent-color);
 }
 
-/* Rating Stars Styles */
-.rating-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 20px;
-    border-top: 3px solid var(--accent-color); 
-    border-bottom: 3px solid var(--accent-color); 
-    padding-top: 10px; 
-    padding-bottom: 10px; 
-}
+@media only screen and (max-width: 768px) {
+    .category-buttons {
+        flex-wrap: nowrap;
+    }
 
-#average-rating {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
+    .ingredient-buttons {
+        flex-wrap: nowrap;
+    }
 
-.rating-actions {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
+    .ingredientbutton-text {
+        font-size: auto;
+    }
 
-#rating-stars {
-    font-size: 2em;
-    color: #ddd;
-}
+    .mainbutton-text {
+        font-size: auto;
+    }
 
-.rating-star {
-    cursor: pointer;
-    transition: color 0.2s;
-}
+    .section-title {
+        flex-wrap: nowrap;
+        font-size: 1.8em;
+    }
 
-.rating-star.selected {
-    color: #f39c12; /* Gold color for selected stars */
-}
+    .nav-list {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 10px;
+    }
 
-#submit-rating {
-    padding: 10px 20px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-left: 30px;
-    background-color: var(--primary-color);
-    border-radius: 5px;
-    border: none;
-    color: white;
+    .nav-list li {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .nav-list li a {
+        font-size: 1em;
+    }
+
 }
