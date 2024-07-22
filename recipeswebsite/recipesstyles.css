@@ -429,7 +429,7 @@ button:hover {
 
 .recipe-title {
     font-size: 2.5em; 
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: left;
     color: var(--accent-color);
     position: relative;
@@ -464,8 +464,13 @@ button:hover {
 .rating-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin: 20px 0;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    border-top: 3px solid var(--accent-color); 
+    border-bottom: 3px solid var(--accent-color); 
+    padding-top: 10px; 
+    padding-bottom: 10px; 
 }
 
 #average-rating {
@@ -473,8 +478,14 @@ button:hover {
     margin-bottom: 10px;
 }
 
+.rating-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 #rating-stars {
-    font-size: 1.5em;
+    font-size: 2em;
     color: #ddd;
 }
 
@@ -483,34 +494,17 @@ button:hover {
     transition: color 0.2s;
 }
 
-.rating-star.filled {
-    color: #ffca28;
+.rating-star.selected {
+    color: #f39c12; /* Gold color for selected stars */
 }
 
-/* Rating Form Styles */
-.rating-form {
-    margin-top: 20px;
-}
-
-.rating-form label {
-    display: block;
-    margin-bottom: 10px;
-}
-
-.rating-form select {
-    padding: 5px;
-    font-size: 1em;
-}
-
-.rating-form button {
-    padding: 10px;
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
+#submit-rating {
+    padding: 10px 20px;
+    font-size: 14px;
     cursor: pointer;
-}
-
-.rating-form button:hover {
+    margin-left: 30px;
     background-color: var(--primary-color);
+    border-radius: 5px;
+    border: none;
+    color: white;
 }
