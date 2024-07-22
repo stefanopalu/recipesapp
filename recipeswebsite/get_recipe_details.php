@@ -13,7 +13,7 @@ if (isset($_GET['recipe_id'])) {
     $recipe_id = intval($_GET['recipe_id']); // Convert to integer for safety
 
     // Prepare SQL statement
-    $sql = "SELECT recipe_name, description, preparation_time, cooking_time, instructions_steps, image_path FROM recipes WHERE recipe_id = ?";
+    $sql = "SELECT recipe_name, description, preparation_time, cooking_time, instructions_steps, image_path, avg_rating FROM recipes WHERE recipe_id = ?";
     $stmt = $conn->prepare($sql);
 
     if ($stmt === false) {
@@ -36,6 +36,7 @@ if (isset($_GET['recipe_id'])) {
             'cook_time' => $row['cooking_time'],
             'instructions_steps' => explode('|', $row['instructions_steps']),
             'image_path' => $row['image_path'],
+            'avg_rating' => $row['avg_rating']
         ];
     } else {
         $recipe = null;
