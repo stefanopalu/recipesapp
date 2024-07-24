@@ -41,7 +41,7 @@ header {
     color: #fff;
     padding: 0;
     margin: 0 0 0 10px;
-    font-size: 3em;
+    font-size: 4em;
 }
 
 .logo a {
@@ -65,7 +65,7 @@ header {
     text-decoration: none;
     color: #fff;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 2em;
 }
 
 .nav-list li a:focus {
@@ -92,8 +92,8 @@ footer {
 
 /* Form Styles */
 .form-section {
-    width: 40%;
-    max-width: 500px;
+    width: 50%;
+    max-width: 550px;
     margin: auto;
     padding: 20px;
     background-color: #fefefe;
@@ -192,7 +192,7 @@ footer {
 }
 
 .section-title {
-    font-size: 2.5em; 
+    font-size: 3em; 
     margin-bottom: 20px;
     text-align: left;
     color: var(--accent-color);
@@ -238,12 +238,12 @@ footer {
 
 .category-buttons button.selected {
     border: 4px solid var(--primary-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Strong shadow effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); 
 }
 
 .category-buttons .mainbutton-text {
     margin-top: 10px;
-    font-size: 1.5em;
+    font-size: 2em;
     text-align: center;
     color: var(--accent-color);
 }
@@ -268,7 +268,7 @@ footer {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 20px;
-    margin-top: 10px;
+    margin: 10px 0;
 }
 
 .ingredient-buttons .button-container {
@@ -288,12 +288,12 @@ footer {
 
 .ingredient-buttons button.selected {
     border: 4px solid var(--primary-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Strong shadow effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .ingredient-buttons .ingredientbutton-text {
     margin-top: 10px;
-    font-size: 1em;
+    font-size: 2em;
     text-align: center;
     color: var(--accent-color);
 }
@@ -363,7 +363,7 @@ button:hover {
 }
 
 .time-buttons button {
-    width: 150px;
+    width: 250px;
     padding-bottom: 100%; 
     border: none;
     border-radius: 50%; 
@@ -373,12 +373,12 @@ button:hover {
 
 .time-buttons button.selected {
     border: 4px solid var(--primary-color);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Strong shadow effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .time-buttons .timebutton-text {
     margin-top: 10px;
-    font-size: 1em;
+    font-size: 2em;
     text-align: center;
     color: var(--accent-color);
 }
@@ -395,7 +395,7 @@ button:hover {
 
 .search-results {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 20px;
     margin-top: 10px;
 }
@@ -425,7 +425,7 @@ button:hover {
 
 .recipe-card h3 {
     margin-top: 10px;
-    font-size: 1.2em;
+    font-size: 2em;
     color: #333;
     text-align: center;
 }
@@ -513,7 +513,7 @@ button:hover {
 }
 
 .rating-star.selected {
-    color: #f39c12; /* Gold color for selected stars */
+    color: #f39c12; 
 }
 
 #submit-rating {
@@ -528,17 +528,47 @@ button:hover {
 }
 
 @media screen and (max-width: 768px) {
-    .category-buttons {
-        flex-wrap: nowrap;
+    .logo {
+        font-size: 2em;
     }
-    .ingredient-buttons {
-        flex-wrap: nowrap;
+    
+    .nav-list li a {
+        font-size: 1.5em;
+    }
+
+    .category-buttons .mainbutton-text {
+        font-size: 1em;
+    }
+
+    .ingredient-buttons .ingredientbutton-text {
+        font-size: 1em;
+    }
+
+    .time-buttons button {
+        width: 150px;
+    }
+
+    .time-buttons .timebutton-text {
+        font-size: 1em;
+    }
+
+    .search-results {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .recipe-card h3 {
+        font-size: 1.2em;
     }
 
     .section-title {
         flex-wrap: nowrap;
         font-size: 1.8em;
     }
+
+    .recipe-title {
+        font-size: 2em; 
+    }
+
     .nav-list {
         margin-top: 10px;
     }
