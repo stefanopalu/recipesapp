@@ -1,8 +1,4 @@
 <?php
-// Fetch user data based on session
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 // Include database connection
 include('db_connection.php');
 
