@@ -2,152 +2,102 @@
 // Include database connection
 include 'db_connection.php';
 
-// Function to fetch recipes by category
-function fetchRecipesByCategory($category_id) {
+// Function to fetch recipes by combined criteria
+function fetchRecipes($criteria) {
     global $conn;
 
-    // Define SQL query and prepare SQL statement using the db connection
-    $sql = "SELECT recipe_id, recipe_name, category_id, image_path FROM recipes WHERE category_id = ?";
-    $stmt = $conn->prepare($sql);
+    // Base SQL query
+    $sql = "SELECT DISTINCT r.recipe_id, r.recipe_name, r.category_id, r.image_path FROM recipes r";
 
-    // Check if preparing SQL statement fails
-    if ($stmt === false) {
-        die('MySQL prepare error: ' . htmlspecialchars($conn->error));
+    // Initialize where conditions and parameters
+    $whereConditions = [];
+    $params = [];
+    $paramTypes = '';
+
+    // Check for category_id
+    if (!empty($criteria['category_id'])) {
+        $whereConditions[] = "r.category_id = ?";
+        $params[] = intval($criteria['category_id']);
+        $paramTypes .= 'i';
     }
 
-    // Bind parameter $category_id to the prepared statement and execute it
-    $stmt->bind_param('i', $category_id);
-    $stmt->execute();
-
-    // Get result set from the executed statement
-    $result = $stmt->get_result();
-
-    // Iterate through each row of the result set and append it in the array $recipes
-    $recipes = [];
-    while ($row = $result->fetch_assoc()) {
-        $recipes[] = $row;
+    // Check for ingredient_ids
+    if (!empty($criteria['ingredient_ids'])) {
+        $ingredientIds = explode(',', $criteria['ingredient_ids']);
+        $placeholders = implode(',', array_fill(0, count($ingredientIds), '?'));
+        $sql .= " INNER JOIN recipe_ingredients ri ON r.recipe_id = ri.recipe_id";
+        $whereConditions[] = "ri.ingredient_id IN ($placeholders)";
+        $params = array_merge($params, array_map('intval', $ingredientIds));
+        $paramTypes .= str_repeat('i', count($ingredientIds));
     }
 
-    // Free result set and close statement
-    $result->free();
-    $stmt->close();
-
-    return $recipes;
-}
-
-// Function to fetch recipes by ingredient
-function fetchRecipesByIngredient($ingredient_id) {
-    global $conn;
-
-    // Define SQL query and prepare SQL statement using the db connection
-    $sql = "SELECT r.recipe_id, r.recipe_name, r.category_id, r.image_path
-            FROM recipes r
-            INNER JOIN recipe_ingredients ri ON r.recipe_id = ri.recipe_id
-            WHERE ri.ingredient_id = ?";
-    $stmt = $conn->prepare($sql);
-
-    // Check if preparing SQL statement fails
-    if ($stmt === false) {
-        die('MySQL prepare error: ' . htmlspecialchars($conn->error));
+    // Check for cooking_time
+    if (!empty($criteria['cooking_time'])) {
+        $cookingTimes = [];
+        switch ($criteria['cooking_time']) {
+            case 'Short':
+                $cookingTimes = ['no cooking required', 'less than 10 mins', '10 to 30 mins'];
+                break;
+            case 'Medium':
+                $cookingTimes = ['30 mins to 1 hour', '1 to 2 hours'];
+                break;
+            case 'Long':
+                $cookingTimes = ['over 2 hours'];
+                break;
+        }
+        $placeholders = implode(',', array_fill(0, count($cookingTimes), '?'));
+        $whereConditions[] = "r.cooking_time IN ($placeholders)";
+        $params = array_merge($params, $cookingTimes);
+        $paramTypes .= str_repeat('s', count($cookingTimes));
     }
 
-    // Bind parameter $ingredient_id and execute statement
-    $stmt->bind_param('i', $ingredient_id);
-    $stmt->execute();
-
-    // Get result set from executed statement
-    $result = $stmt->get_result();
-
-    // Iterate through each row of the result set and append it in the array $recipes
-    $recipes = [];
-    while ($row = $result->fetch_assoc()) {
-        $recipes[] = $row;
+    // Append where conditions to the base SQL query
+    if (count($whereConditions) > 0) {
+        $sql .= ' WHERE ' . implode(' AND ', $whereConditions);
     }
 
-    // Free result set and close statement
-    $result->free();
-    $stmt->close();
-
-    return $recipes;
-}
-
-// Function to fetch recipes by cooking time
-function fetchRecipesByCookingTime($time_category) {
-    global $conn;
-
-    $cookingTimes = [];
-    switch ($time_category) {
-        case 'Short':
-            $cookingTimes = ['no cooking required', 'less than 10 mins','10 to 30 mins'];
-            break;
-        case 'Medium':
-            $cookingTimes = ['30 mins to 1 hour', '1 to 2 hours'];
-            break;
-        case 'Long':
-            $cookingTimes = ['over 2 hours'];
-            break;
+    // Add group by and having clause to ensure all ingredients are matched
+    if (!empty($criteria['ingredient_ids'])) {
+        $ingredientCount = count(explode(',', $criteria['ingredient_ids']));
+        $sql .= " GROUP BY r.recipe_id HAVING COUNT(DISTINCT ri.ingredient_id) = ?";
+        $params[] = $ingredientCount;
+        $paramTypes .= 'i';
     }
-
-    // Generate a string of placeholders for the SQL query
-    $placeholders = str_repeat('?,', count($cookingTimes) - 1) . '?';
-
-    // Define SQL query with the generated placeholders and prepare SQL statement using the db connection
-    $sql = "SELECT recipe_id, recipe_name, category_id, image_path, cooking_time FROM recipes WHERE cooking_time IN ($placeholders)";
-    $stmt = $conn->prepare($sql);
-
-    // Check if preparing SQL statement fails
-    if ($stmt === false) {
-        die('MySQL prepare error: ' . htmlspecialchars($conn->error));
-    }
-
-    // Bind parameter $time_category to the prepared statement and execute it
-    $stmt->bind_param(str_repeat('s', count($cookingTimes)), ...$cookingTimes);
-    $stmt->execute();
-
-    // Get result set from the executed statement
-    $result = $stmt->get_result();
-
-    // Iterate through each row of the result set and append it in the array $recipes
-    $recipes = [];
-    while ($row = $result->fetch_assoc()) {
-        $recipes[] = $row;
-    }
-
-    // Free result set and close statement
-    $result->free();
-    $stmt->close();
-
-    return $recipes;
-}
-
-// Check if category_id, ingredient_id or cooking_time parameter exists in GET request
-if (isset($_GET['category_id'])) {
-    // Sanitize the input to prevent SQL injection
-    $category_id = intval($_GET['category_id']); // Convert to integer for safety
-
-    // Fetch recipes by category
-    $recipes = fetchRecipesByCategory($category_id);
-
-} elseif (isset($_GET['ingredient_id'])) {
-    // Sanitize the input to prevent SQL injection
-    $ingredient_id = intval($_GET['ingredient_id']); // Convert to integer for safety
-
-    // Fetch recipes by ingredient
-    $recipes = fetchRecipesByIngredient($ingredient_id);
     
-} elseif (isset($_GET['cooking_time'])) { // New condition to check for cooking_time parameter
+    // Prepare and execute SQL statement
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        die('MySQL prepare error: ' . htmlspecialchars($conn->error));
+    }
 
-    $cooking_time = $_GET['cooking_time']; // No need to convert to integer, it's a string
+    if (count($params) > 0) {
+        $stmt->bind_param($paramTypes, ...$params);
+    }
 
-    // Fetch recipes by cooking time
-    $recipes = fetchRecipesByCookingTime($cooking_time);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-} else {
-    // Handle case where neither category_id nor ingredient_id parameter is provided
-    http_response_code(400); // Bad Request
-    echo json_encode(array("error" => "Missing category_id or ingredient_id parameter"));
-    exit;
+    // Fetch recipes
+    $recipes = [];
+    while ($row = $result->fetch_assoc()) {
+        $recipes[] = $row;
+    }
+
+    $result->free();
+    $stmt->close();
+
+    return $recipes;
 }
+
+// Collect and sanitize criteria from GET request
+$criteria = [
+    'category_id' => isset($_GET['category_id']) ? intval($_GET['category_id']) : null,
+    'ingredient_ids' => isset($_GET['ingredient_ids']) ? $_GET['ingredient_ids'] : null,
+    'cooking_time' => isset($_GET['cooking_time']) ? $_GET['cooking_time'] : null
+];
+
+// Fetch recipes by combined criteria
+$recipes = fetchRecipes($criteria);
 
 // Convert output $recipes to JSON format
 header('Content-Type: application/json');
