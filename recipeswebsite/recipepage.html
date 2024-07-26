@@ -14,34 +14,34 @@
 <body>
     <div class="container">
         <!-- Header section with navigation menu -->
-        <header role="banner">
-            <h1 class="logo"><a href="index.html" title="Search Recipes">The Chef's Recipes</a></h1>
+        <header>
+            <h1 class="logo"><a href="index.html" title="Go to Home Page">The Chef's Recipes</a></h1>
             <nav role="navigation" aria-label="Main Navigation">
-                <ul class="nav-list">
+                <ul class="nav-list" role="menubar">
                     <!-- Styled HTML list for navigation -->
-                    <li role="menuitem"><a href="recipessearch.html" title="Search Recipes">Search Recipes</a></li>
-                    <li id="loginButton" role="menuitem"><a href="index.html" title="Login">Login</a></li>
-                    <li id="logoutButton" role="menuitem" style="display:none;"><a href="#" title="Logout">Logout</a></li>
-                    <li id="profileLink" role="menuitem" style="display:none;"><a href="userprofile.html" title="View Profile">Profile</a></li>
+                    <li><a href="recipessearch.html" role="menuitem" title="Search Recipes">Search Recipes</a></li>
+                    <li id="profileLink" style="display:none;"><a href="userprofile.html" role="menuitem" title="View Profile">Profile</a></li>
+                    <li id="loginButton"><a href="index.html" role="menuitem" title="Login">Login</a></li>
+                    <li id="logoutButton" style="display:none;"><a href="#" role="menuitem" title="Logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
         <main role="main" class="recipe-page-container">
-            <article>
+            <article aria-labelledby="recipe-title">
                 <div>
                     <div class="title-favorite-container">
                         <h2 class="recipe-title" id="recipe-title">Recipe Title</h2>
-                        <i id="favorite-icon" class="far fa-heart" title="Save to Favorites"></i>
+                        <i id="favorite-icon" class="far fa-heart" aria-label="Save to Favorites" title="Save to Favorites"></i>
                     </div>
                     <div class="rating-container">
-                        <div id="average-rating"></div>
+                        <div id="average-rating" aria-live="polite" aria-atomic="true"></div>
                         <div class="rating-actions">
                             <div id="rating-stars">
-                                <i class="fa fa-star rating-star" data-value="1"></i>
-                                <i class="fa fa-star rating-star" data-value="2"></i>
-                                <i class="fa fa-star rating-star" data-value="3"></i>
-                                <i class="fa fa-star rating-star" data-value="4"></i>
-                                <i class="fa fa-star rating-star" data-value="5"></i>
+                                <i class="fa fa-star rating-star" data-value="1" aria-label="Rate 1 star"></i>
+                                <i class="fa fa-star rating-star" data-value="2" aria-label="Rate 2 stars"></i>
+                                <i class="fa fa-star rating-star" data-value="3" aria-label="Rate 3 stars"></i>
+                                <i class="fa fa-star rating-star" data-value="4" aria-label="Rate 4 stars"></i>
+                                <i class="fa fa-star rating-star" data-value="5" aria-label="Rate 5 stars"></i>
                             </div>
                             <button id="submit-rating">Submit Rating</button>
                         </div>

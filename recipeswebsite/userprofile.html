@@ -14,14 +14,14 @@
 <body>
     <div class="container">
         <!-- Header section with navigation menu -->
-        <header role="banner">
+        <header>
             <h1 class="logo"><a href="index.html" title="Go to HomePage">The Chef's Recipes</a></h1>
             <nav role="navigation" aria-label="Main Navigation">
-                <ul class="nav-list">
+                <ul class="nav-list" role="menubar">
                     <!-- Styled HTML list for navigation -->
-                    <li role="menuitem"><a href="recipessearch.html" title="Search Recipes">Search Recipes</a></li>
-                    <li id="loginButton" role="menuitem"><a href="index.html" title="Login">Login</a></li>
-                    <li id="logoutButton" role="menuitem" style="display:none;"><a href="#" title="Logout">Logout</a></li>
+                    <li><a href="recipessearch.html" role="menuitem" title="Search Recipes">Search Recipes</a></li>
+                    <li id="loginButton"><a href="index.html" role="menuitem" title="Login">Login</a></li>
+                    <li id="logoutButton" style="display:none;"><a href="#" role="menuitem" title="Logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
