@@ -1,0 +1,4 @@
+PHP 7 or 8
+MySQL
+XAMPP
+Visual Studio Code
